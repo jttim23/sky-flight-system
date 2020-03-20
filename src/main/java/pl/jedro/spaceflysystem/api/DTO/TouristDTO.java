@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
- public class TouristDTO {
+public class TouristDTO {
     private String name;
     private String lastName;
     private String sex;

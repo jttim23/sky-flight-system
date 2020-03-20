@@ -6,10 +6,15 @@ import pl.jedro.spaceflysystem.model.Tourist;
 import java.util.List;
 
 public interface TouristService {
-    List<Tourist> getAllTourists();
+    List<TouristDTO> getAllTourists();
+
     TouristDTO getTouristById(Long id);
+
     TouristDTO createTourist(TouristDTO touristDTO);
+
     void deleteTouristById(Long id);
-    TouristDTO saveTourist(Long id, TouristDTO touristDTO);
+
+    TouristDTO deleteFlightByTouristId(Long id);
+    TouristDTO addFlightByTouristId(Long id);
 
 }

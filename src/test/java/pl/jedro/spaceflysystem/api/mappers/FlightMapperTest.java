@@ -14,19 +14,20 @@ class FlightMapperTest {
 
 
     @Test
-    public void flightDTOToFlight() throws Exception{
-        FlightDTO flightDTO=new FlightDTO();
+    public void flightDTOToFlight() throws Exception {
+        FlightDTO flightDTO = new FlightDTO();
         flightDTO.setSeatQuantity(seats);
 
         Flight flight = flightMapper.flightDTOToFlight(flightDTO);
-        assertEquals(flightDTO.getSeatQuantity(),flight.getSeatQuantity());
+        assertEquals(flightDTO.getSeatQuantity(), flight.getSeatQuantity());
     }
+
     @Test
-    public void flightToFlightDTO() throws Exception{
+    public void flightToFlightDTO() throws Exception {
         Flight flight = new Flight();
         flight.setSeatQuantity(seats);
         FlightDTO flightDTO = flightMapper.flightToFlightDTO(flight);
-        assertEquals(flight.getSeatQuantity(),flightDTO.getSeatQuantity());
+        assertEquals(flight.getSeatQuantity(), flightDTO.getSeatQuantity());
     }
 
 }
