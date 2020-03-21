@@ -1,5 +1,6 @@
 package pl.jedro.spaceflysystem.services;
 
+import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.model.Tourist;
@@ -7,7 +8,7 @@ import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class TouristServiceImp implements TouristService {
     private TouristMapper touristMapper;
     private TouristRepository touristsRepository;

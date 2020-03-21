@@ -62,5 +62,9 @@ class FlightServiceImpTest {
         flightRepository.deleteById(id);
        verify(flightRepository,times(1)).deleteById(anyLong());
     }
+    @Test
+    void addTouristByFlightId(){
+
+    }
 
 }

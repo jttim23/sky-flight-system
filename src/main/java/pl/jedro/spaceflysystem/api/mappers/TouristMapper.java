@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.model.Tourist;
 
-@Mapper
+@Mapper(componentModel="spring")
 public interface TouristMapper {
     TouristMapper INSTANCE = Mappers.getMapper(TouristMapper.class);
 

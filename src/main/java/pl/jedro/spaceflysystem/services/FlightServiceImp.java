@@ -1,5 +1,6 @@
 package pl.jedro.spaceflysystem.services;
 
+import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.model.Flight;
@@ -7,7 +8,7 @@ import pl.jedro.spaceflysystem.repositories.FlightRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class FlightServiceImp implements FlightService {
     private FlightRepository flightRepository;
     private FlightMapper flightMapper;

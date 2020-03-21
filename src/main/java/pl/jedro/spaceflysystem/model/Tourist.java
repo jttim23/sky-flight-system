@@ -3,17 +3,13 @@ package pl.jedro.spaceflysystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 
 @Data
 @Entity
-
 public class Tourist {
     @Id
     @JsonIgnore
@@ -25,6 +21,7 @@ public class Tourist {
     private String country;
     private String notes;
     private LocalDate dateOfBirth;
+    @ManyToMany
     private List<Flight> flights;
 
 }
