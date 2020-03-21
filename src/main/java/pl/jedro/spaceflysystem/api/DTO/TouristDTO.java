@@ -19,7 +19,7 @@ public class TouristDTO {
     private String country;
     private String notes;
     private LocalDate dateOfBirth;
-    private List<Flight> flights;
+    private List<FlightDTO> flights;
     private String TouristUrl;
 
 }

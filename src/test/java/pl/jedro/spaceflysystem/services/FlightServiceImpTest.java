@@ -8,6 +8,7 @@ import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.model.Flight;
+import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 
 import java.util.Arrays;
@@ -31,7 +32,7 @@ class FlightServiceImpTest {
         flightService=new FlightServiceImp(flightRepository,flightMapper);
     }
     @Test
-    void getAllFlights() {
+    void getAllFlights()throws Exception {
         Flight flight1 = new Flight();
         flight1.setSeatQuantity(6);
         flight1.setId(1L);
@@ -45,7 +46,8 @@ class FlightServiceImpTest {
 
     }
     @Test
-    void createFlight(){
+    void createFlight()throws Exception{
+
         FlightDTO flightDTO = new FlightDTO();
         flightDTO.setSeatQuantity(6);
         Flight savedFlight = new Flight();
@@ -57,14 +59,19 @@ class FlightServiceImpTest {
         assertEquals("/api/v1/flights/1",savedDTO.getFlightUrl());
     }
     @Test
-    void deleteFlight(){
+    void deleteFlight()throws Exception{
         Long id = 1L;
         flightRepository.deleteById(id);
        verify(flightRepository,times(1)).deleteById(anyLong());
     }
     @Test
-    void addTouristByFlightId(){
-
+    void addTouristByFlightId() throws Exception{
+        Tourist tourist1 = new Tourist();
+        tourist1.setId(1L);
+        tourist1.setName("Jimmy");
+        Tourist tourist2 = new Tourist();
+        tourist2.setId(2L);
+        tourist2.setName("Eve");
     }
 
 }

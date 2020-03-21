@@ -16,7 +16,7 @@ public class FlightDTO {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private int seatQuantity;
-    private List<Tourist> tourists;
+    private List<TouristDTO> tourists;
     private double ticketPrice;
     private String flightUrl;
 
