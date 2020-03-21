@@ -7,7 +7,7 @@ import org.mockito.MockitoAnnotations;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.model.Tourist;
-import pl.jedro.spaceflysystem.repositories.TouristsRepository;
+import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,14 +19,14 @@ import static org.mockito.Mockito.*;
 
 class TouristServiceImpTest {
     @Mock
-    TouristsRepository touristsRepository;
+    TouristRepository touristsRepository;
     TouristMapper touristMapper = TouristMapper.INSTANCE;
     TouristService touristService;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        touristService = new TouristServiceImp(touristMapper, touristsRepository);
+        touristService = new TouristServiceImp(touristsRepository,touristMapper);
 
     }
 

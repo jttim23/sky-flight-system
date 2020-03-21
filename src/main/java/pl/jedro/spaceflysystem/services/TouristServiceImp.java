@@ -3,16 +3,16 @@ package pl.jedro.spaceflysystem.services;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.model.Tourist;
-import pl.jedro.spaceflysystem.repositories.TouristsRepository;
+import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TouristServiceImp implements TouristService {
     private TouristMapper touristMapper;
-    private TouristsRepository touristsRepository;
+    private TouristRepository touristsRepository;
 
-    public TouristServiceImp(TouristMapper touristMapper, TouristsRepository repository) {
+    public TouristServiceImp(TouristRepository repository, TouristMapper touristMapper) {
         this.touristMapper = touristMapper;
         this.touristsRepository = repository;
     }
@@ -34,12 +34,13 @@ public class TouristServiceImp implements TouristService {
 
     @Override
     public TouristDTO createTourist(TouristDTO touristDTO) {
-        return saveAndReturnDTO(touristMapper.touristDTOToTourist(touristDTO)) ;
+        return saveAndReturnDTO(touristMapper.touristDTOToTourist(touristDTO));
     }
-    private TouristDTO saveAndReturnDTO(Tourist tourist){
+
+    private TouristDTO saveAndReturnDTO(Tourist tourist) {
         Tourist savedTourist = touristsRepository.save(tourist);
         TouristDTO returnDTO = touristMapper.touristToTouristDTO(savedTourist);
-        returnDTO.setTouristUrl("/api/v1/customers/"+savedTourist.getId());
+        returnDTO.setTouristUrl("/api/v1/customers/" + savedTourist.getId());
         return returnDTO;
     }
 

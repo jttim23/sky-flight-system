@@ -15,6 +15,7 @@ public interface TouristService {
     void deleteTouristById(Long id);
 
     TouristDTO deleteFlightByTouristId(Long id);
+
     TouristDTO addFlightByTouristId(Long id);
 
 }
