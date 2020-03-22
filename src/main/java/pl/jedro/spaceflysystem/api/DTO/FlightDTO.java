@@ -4,6 +4,7 @@ package pl.jedro.spaceflysystem.api.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.jedro.spaceflysystem.model.Tourist;
 
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class FlightDTO {
     private LocalDateTime arrivalTime;
     private int seatQuantity;
     private double ticketPrice;
-    private List<TouristDTO> tourists;
+    private <Tourist> tourists;
     private String flightUrl;
 
 }

@@ -22,9 +22,10 @@ public class FlightController {
     public FlightDTOList getAllFlights() {
         return new FlightDTOList(flightService.getAllFlights());
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FlightDTO getFlightById(@PathVariable Long id){
+    public FlightDTO getFlightById(@PathVariable Long id) {
         return flightService.getFlightById(id);
     }
 

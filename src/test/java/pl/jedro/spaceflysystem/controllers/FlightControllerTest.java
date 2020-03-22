@@ -14,9 +14,11 @@ import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.services.FlightService;
 
 
+import java.util.Arrays;
 
 import static org.hamcrest.Matchers.equalTo;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -37,20 +39,21 @@ class FlightControllerTest extends AbstractRestControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(flightController).setControllerAdvice(new RuntimeException()).build();
     }
 
-    //    @Test
-//    void getAllFlights() throws Exception{
-//        FlightDTO flight1 = new FlightDTO();
-//        flight1.setSeatQuantity(6);
-//
-//        FlightDTO flight2 = new FlightDTO();
-//        flight2.setSeatQuantity(5);
-//
-//
-//        when(flightService.getAllFlights()).thenReturn(Arrays.asList(flight1,flight2));
-//
-//        mockMvc.perform(get(FlightController.BASE_URL).accept(MediaType.APPLICATION_JSON).
-//                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$",hasSize(2)));
-//    }
+    @Test
+    void getAllFlights() throws Exception {
+        FlightDTO flight1 = new FlightDTO();
+        flight1.setSeatQuantity(6);
+
+        FlightDTO flight2 = new FlightDTO();
+        flight2.setSeatQuantity(5);
+
+
+        when(flightService.getAllFlights()).thenReturn(Arrays.asList(flight1, flight2));
+
+        mockMvc.perform(get(FlightController.BASE_URL).accept(MediaType.APPLICATION_JSON).
+                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.flights", hasSize(2)));
+    }
+
     @Test
     void deleteFlightById() throws Exception {
 

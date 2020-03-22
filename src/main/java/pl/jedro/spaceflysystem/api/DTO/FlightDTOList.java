@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FlightDTOList {
-    private List<FlightDTO> flightDTOS;
+    private List<FlightDTO> flights;
 
 }

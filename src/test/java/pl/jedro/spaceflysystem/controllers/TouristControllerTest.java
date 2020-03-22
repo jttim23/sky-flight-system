@@ -39,20 +39,21 @@ class TouristControllerTest extends AbstractRestControllerTest {
                 .setControllerAdvice(new RuntimeException()).build();
     }
 
-    //    @Test
-//    void getAllTourists() throws Exception{
-//        TouristDTO tourist1 = new TouristDTO();
-//        tourist1.setName("Jimmy");
-//        tourist1.setTouristUrl(TouristController.BASE_URL+"/1");
-//        TouristDTO tourist2 = new TouristDTO();
-//        tourist2.setName("Eve");
-//        tourist2.setTouristUrl(TouristController.BASE_URL+"/2");
-//        when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1,tourist2));
-//
-//        mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk()).andExpect(jsonPath("$",hasSize(2)));
-//
-//    }
+    @Test
+    void getAllTourists() throws Exception {
+        TouristDTO tourist1 = new TouristDTO();
+        tourist1.setName("Jimmy");
+        tourist1.setTouristUrl(TouristController.BASE_URL + "/1");
+        TouristDTO tourist2 = new TouristDTO();
+        tourist2.setName("Eve");
+        tourist2.setTouristUrl(TouristController.BASE_URL + "/2");
+        when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1, tourist2));
+
+        mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.tourists", hasSize(2)));
+
+    }
+
     @Test
     void createTourist() throws Exception {
         TouristDTO touristDTO = new TouristDTO();

@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TouristDTOList {
-    private List<TouristDTO> touristDTOS;
+    private List<TouristDTO> tourists;
 }
