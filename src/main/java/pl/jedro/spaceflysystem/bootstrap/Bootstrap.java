@@ -22,9 +22,10 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        loadTourists();
-        loadFlights();
+//        loadTourists();
+//        loadFlights();
     }
+
     private void loadTourists() {
         Tourist tourist1 = new Tourist();
         tourist1.setId(1L);

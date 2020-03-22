@@ -22,17 +22,18 @@ import static org.mockito.Mockito.when;
 
 class FlightServiceImpTest {
     FlightService flightService;
-    FlightMapper flightMapper=FlightMapper.INSTANCE;
+    FlightMapper flightMapper = FlightMapper.INSTANCE;
     @Mock
     FlightRepository flightRepository;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        flightService=new FlightServiceImp(flightRepository,flightMapper);
+        flightService = new FlightServiceImp(flightRepository, flightMapper);
     }
+
     @Test
-    void getAllFlights()throws Exception {
+    void getAllFlights() throws Exception {
         Flight flight1 = new Flight();
         flight1.setSeatQuantity(6);
         flight1.setId(1L);
@@ -40,13 +41,14 @@ class FlightServiceImpTest {
         flight2.setSeatQuantity(5);
         flight2.setId(2L);
 
-        when(flightRepository.findAll()).thenReturn(Arrays.asList(flight1,flight2));
+        when(flightRepository.findAll()).thenReturn(Arrays.asList(flight1, flight2));
         List<FlightDTO> flightDTOS = flightService.getAllFlights();
-        assertEquals(2,flightDTOS.size());
+        assertEquals(2, flightDTOS.size());
 
     }
+
     @Test
-    void createFlight()throws Exception{
+    void createFlight() throws Exception {
 
         FlightDTO flightDTO = new FlightDTO();
         flightDTO.setSeatQuantity(6);
@@ -55,17 +57,19 @@ class FlightServiceImpTest {
         savedFlight.setId(1L);
         when(flightRepository.save(any(Flight.class))).thenReturn(savedFlight);
         FlightDTO savedDTO = flightService.createFlight(flightDTO);
-        assertEquals(savedFlight.getSeatQuantity(),savedDTO.getSeatQuantity());
-        assertEquals("/api/v1/flights/1",savedDTO.getFlightUrl());
+        assertEquals(savedFlight.getSeatQuantity(), savedDTO.getSeatQuantity());
+        assertEquals("/api/v1/flights/1", savedDTO.getFlightUrl());
     }
+
     @Test
-    void deleteFlight()throws Exception{
+    void deleteFlight() throws Exception {
         Long id = 1L;
         flightRepository.deleteById(id);
-       verify(flightRepository,times(1)).deleteById(anyLong());
+        verify(flightRepository, times(1)).deleteById(anyLong());
     }
+
     @Test
-    void addTouristByFlightId() throws Exception{
+    void addTouristByFlightId() throws Exception {
         Tourist tourist1 = new Tourist();
         tourist1.setId(1L);
         tourist1.setName("Jimmy");

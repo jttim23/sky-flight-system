@@ -32,26 +32,28 @@ class TouristMapperTest {
         Tourist tourist = touristMapper.touristDTOToTourist(touristDTO);
         assertEquals(touristDTO.getName(), tourist.getName());
     }
+
     @Test
-    public void TouristListToTouristDTOList()throws Exception{
+    public void TouristListToTouristDTOList() throws Exception {
         Tourist tourist1 = new Tourist();
         tourist1.setName(NAME);
         Tourist tourist2 = new Tourist();
         tourist2.setName(NAME);
-        List<Tourist> tourists = Arrays.asList(tourist1,tourist2);
+        List<Tourist> tourists = Arrays.asList(tourist1, tourist2);
         List<TouristDTO> touristDTOS = touristMapper.touristListToTouristDTOList(tourists);
-        assertEquals(touristDTOS.get(1).getName(),tourists.get(1).getName());
+        assertEquals(touristDTOS.get(1).getName(), tourists.get(1).getName());
 
     }
+
     @Test
-    public void TouristDTOListToTouristList()throws Exception{
+    public void TouristDTOListToTouristList() throws Exception {
         TouristDTO tourist1 = new TouristDTO();
         tourist1.setName(NAME);
         TouristDTO tourist2 = new TouristDTO();
         tourist2.setName(NAME);
-        List<TouristDTO> touristDTOS = Arrays.asList(tourist1,tourist2);
+        List<TouristDTO> touristDTOS = Arrays.asList(tourist1, tourist2);
         List<Tourist> tourists = touristMapper.touristDTOListToTouristList(touristDTOS);
-        assertEquals(tourists.get(1).getName(),touristDTOS.get(1).getName());
+        assertEquals(tourists.get(1).getName(), touristDTOS.get(1).getName());
 
     }
 }

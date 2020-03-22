@@ -32,26 +32,28 @@ class FlightMapperTest {
         FlightDTO flightDTO = flightMapper.flightToFlightDTO(flight);
         assertEquals(flight.getSeatQuantity(), flightDTO.getSeatQuantity());
     }
+
     @Test
-    public void flightListToFlightDTOList()throws Exception{
+    public void flightListToFlightDTOList() throws Exception {
         Flight flight1 = new Flight();
         flight1.setSeatQuantity(seats);
         Flight flight2 = new Flight();
         flight2.setSeatQuantity(seats);
-        List<Flight> flights = Arrays.asList(flight1,flight2);
+        List<Flight> flights = Arrays.asList(flight1, flight2);
         List<FlightDTO> flightDTOS = flightMapper.flightListToFlightDTOList(flights);
-        assertEquals(flightDTOS.get(1).getSeatQuantity(),flights.get(1).getSeatQuantity());
+        assertEquals(flightDTOS.get(1).getSeatQuantity(), flights.get(1).getSeatQuantity());
 
     }
+
     @Test
-    public void flightDTOListToFlightList()throws Exception{
+    public void flightDTOListToFlightList() throws Exception {
         FlightDTO flight1 = new FlightDTO();
         flight1.setSeatQuantity(seats);
         FlightDTO flight2 = new FlightDTO();
         flight2.setSeatQuantity(seats);
-        List<FlightDTO> flightDTOS = Arrays.asList(flight1,flight2);
+        List<FlightDTO> flightDTOS = Arrays.asList(flight1, flight2);
         List<Flight> flights = flightMapper.flightDTOListToFlightList(flightDTOS);
-        assertEquals(flights.get(1).getSeatQuantity(),flightDTOS.get(1).getSeatQuantity());
+        assertEquals(flights.get(1).getSeatQuantity(), flightDTOS.get(1).getSeatQuantity());
 
     }
 }

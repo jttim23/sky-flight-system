@@ -20,6 +20,9 @@ public class Flight {
     private LocalDateTime arrivalTime;
     private int seatQuantity;
     @ManyToMany
+    @JoinTable(name = "flights_tourists",
+            joinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "tourist_id", referencedColumnName = "id")})
     private List<Tourist> tourists;
     private double ticketPrice;
 

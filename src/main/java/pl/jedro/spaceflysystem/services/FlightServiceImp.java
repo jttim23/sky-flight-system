@@ -2,12 +2,14 @@ package pl.jedro.spaceflysystem.services;
 
 import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
+
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class FlightServiceImp implements FlightService {
     private FlightRepository flightRepository;
@@ -16,6 +18,12 @@ public class FlightServiceImp implements FlightService {
     public FlightServiceImp(FlightRepository flightRepository, FlightMapper flightMapper) {
         this.flightRepository = flightRepository;
         this.flightMapper = flightMapper;
+    }
+
+    @Override
+    public FlightDTO getFlightById(Long id) {
+        return flightRepository.findById(id).map(flightMapper::flightToFlightDTO)
+                .orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -33,9 +41,9 @@ public class FlightServiceImp implements FlightService {
     }
 
     private FlightDTO saveAndReturnDTO(Flight flight) {
-       Flight savedFlight= flightRepository.save(flight);
+        Flight savedFlight = flightRepository.save(flight);
         FlightDTO flightDTO = flightMapper.flightToFlightDTO(savedFlight);
-        flightDTO.setFlightUrl("/api/v1/flights/"+savedFlight.getId());
+        flightDTO.setFlightUrl("/api/v1/flights/" + savedFlight.getId());
         return flightDTO;
     }
 

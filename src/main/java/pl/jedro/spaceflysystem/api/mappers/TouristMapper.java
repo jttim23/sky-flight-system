@@ -7,7 +7,7 @@ import pl.jedro.spaceflysystem.model.Tourist;
 
 import java.util.List;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface TouristMapper {
     TouristMapper INSTANCE = Mappers.getMapper(TouristMapper.class);
 
@@ -15,6 +15,7 @@ public interface TouristMapper {
 
     Tourist touristDTOToTourist(TouristDTO touristDTO);
 
-    List<Tourist> touristDTOListToTouristList (List<TouristDTO> touristDTOS);
-    List<TouristDTO> touristListToTouristDTOList (List<Tourist> tourists);
+    List<Tourist> touristDTOListToTouristList(List<TouristDTO> touristDTOS);
+
+    List<TouristDTO> touristListToTouristDTOList(List<Tourist> tourists);
 }
