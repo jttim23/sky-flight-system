@@ -21,7 +21,7 @@ public class Tourist {
     private String country;
     private String notes;
     private LocalDate dateOfBirth;
-    @ManyToMany(mappedBy = "tourists")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tourists")
     private List<Flight> flights;
 
 }

@@ -19,7 +19,7 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private int seatQuantity;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "flights_tourists",
             joinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "tourist_id", referencedColumnName = "id")})

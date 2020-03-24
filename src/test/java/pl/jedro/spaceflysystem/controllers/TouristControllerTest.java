@@ -43,10 +43,10 @@ class TouristControllerTest extends AbstractRestControllerTest {
     void getAllTourists() throws Exception {
         TouristDTO tourist1 = new TouristDTO();
         tourist1.setName("Jimmy");
-        tourist1.setTouristUrl(TouristController.BASE_URL + "/1");
+
         TouristDTO tourist2 = new TouristDTO();
         tourist2.setName("Eve");
-        tourist2.setTouristUrl(TouristController.BASE_URL + "/2");
+
         when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1, tourist2));
 
         mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
@@ -58,16 +58,15 @@ class TouristControllerTest extends AbstractRestControllerTest {
     void createTourist() throws Exception {
         TouristDTO touristDTO = new TouristDTO();
         touristDTO.setName("Jimmy");
-        touristDTO.setTouristUrl(TouristController.BASE_URL + "/1");
+
 
         TouristDTO returnDTO = new TouristDTO();
-        returnDTO.setTouristUrl(touristDTO.getTouristUrl());
+
         returnDTO.setName(touristDTO.getName());
         when(touristService.createTourist(any())).thenReturn(returnDTO);
 
         mockMvc.perform(post(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(asJsonString(touristDTO)))
-                .andExpect(status().isCreated()).andExpect(jsonPath("$.name", equalTo("Jimmy")))
-                .andExpect(jsonPath("$.touristUrl", equalTo(TouristController.BASE_URL + "/1")));
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.name", equalTo("Jimmy")));
     }
 
     @Test

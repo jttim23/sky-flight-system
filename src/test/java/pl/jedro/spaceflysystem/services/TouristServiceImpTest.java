@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.api.mappers.TouristExtMapper;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.controllers.TouristController;
 import pl.jedro.spaceflysystem.model.Flight;
@@ -29,7 +30,7 @@ class TouristServiceImpTest {
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        touristService = new TouristServiceImp(touristsRepository, touristMapper);
+        touristService = new TouristServiceImp( touristMapper,touristsRepository);
 
     }
 
@@ -66,7 +67,6 @@ class TouristServiceImpTest {
         when(touristsRepository.findById(anyLong())).thenReturn(Optional.ofNullable(tourist));
         TouristDTO touristDTO = touristService.getTouristById(1L);
         assertEquals("Jimmy", touristDTO.getName());
-        assertEquals(touristDTO.getTouristUrl(), TouristController.BASE_URL+"/"+ tourist.getId());
     }
 
     @Test
@@ -83,7 +83,7 @@ class TouristServiceImpTest {
         TouristDTO savedDTO = touristService.createTourist(touristDTO);
 
         assertEquals(savedDTO.getName(), savedTourist.getName());
-        assertEquals("/api/v1/customers/1", savedDTO.getTouristUrl());
+
 
     }
 

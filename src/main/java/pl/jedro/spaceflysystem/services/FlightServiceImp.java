@@ -3,8 +3,11 @@ package pl.jedro.spaceflysystem.services;
 import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 
+import pl.jedro.spaceflysystem.api.DTO.FlightDTOExtended;
+import pl.jedro.spaceflysystem.api.mappers.FlightExtMapper;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
-import pl.jedro.spaceflysystem.controllers.FlightController;
+
+import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 
@@ -16,26 +19,25 @@ public class FlightServiceImp implements FlightService {
     private FlightRepository flightRepository;
     private FlightMapper flightMapper;
 
+
     public FlightServiceImp(FlightRepository flightRepository, FlightMapper flightMapper) {
         this.flightRepository = flightRepository;
         this.flightMapper = flightMapper;
+
     }
 
     @Override
-    public FlightDTO getFlightById(Long id) {
-        FlightDTO returnDTO= flightRepository.findById(id).map(flightMapper::flightToDTO)
-                .orElseThrow(RuntimeException::new);
-        returnDTO.setFlightUrl(FlightController.BASE_URL+"/"+id);
-        return returnDTO;
+    public FlightDTOExtended getFlightById(Long id) {
+        return flightRepository.findById(id).map(flightMapper::flightToDTOExt)
+                .orElseThrow(ResourceNotFoundException::new);
+
+
     }
 
     @Override
     public List<FlightDTO> getAllFlights() {
-        return flightRepository.findAll().stream().map(flight -> {
-            FlightDTO flightDTO = flightMapper.flightToDTO(flight);
-            flightDTO.setFlightUrl("/api/v1/flights/" + flight.getId());
-            return flightDTO;
-        }).collect(Collectors.toList());
+        return flightRepository.findAll().stream()
+                .map(flight -> flightMapper.flightToDTO(flight)).collect(Collectors.toList());
     }
 
     @Override
@@ -45,9 +47,8 @@ public class FlightServiceImp implements FlightService {
 
     private FlightDTO saveAndReturnDTO(Flight flight) {
         Flight savedFlight = flightRepository.save(flight);
-        FlightDTO flightDTO = flightMapper.flightToDTO(savedFlight);
-        flightDTO.setFlightUrl("/api/v1/flights/" + savedFlight.getId());
-        return flightDTO;
+        return flightMapper.flightToDTO(savedFlight);
+
     }
 
     @Override

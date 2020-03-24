@@ -3,6 +3,7 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.api.DTO.TouristDTOExtended;
 import pl.jedro.spaceflysystem.services.TouristService;
 
 import java.util.List;
@@ -17,8 +18,9 @@ public class TouristController {
         this.touristService = touristService;
     }
 
-    @GetMapping({"/{id}"})
-    public TouristDTO getById(@PathVariable Long id) {
+
+    @GetMapping("/{id}")
+    public TouristDTOExtended getById(@PathVariable Long id) {
         return touristService.getTouristById(id);
     }
 
@@ -34,7 +36,7 @@ public class TouristController {
         return touristService.createTourist(touristDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteTourist(@PathVariable Long id) {
         touristService.deleteTouristById(id);

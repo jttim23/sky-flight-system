@@ -20,6 +20,4 @@ public class TouristDTO {
     private String notes;
     private LocalDate dateOfBirth;
 
-    private String TouristUrl;
-
 }

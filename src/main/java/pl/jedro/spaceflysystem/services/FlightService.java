@@ -1,6 +1,7 @@
 package pl.jedro.spaceflysystem.services;
 
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
+import pl.jedro.spaceflysystem.api.DTO.FlightDTOExtended;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface FlightService {
 
     void deleteFlight(Long id);
 
-    FlightDTO getFlightById(Long id);
+    FlightDTOExtended getFlightById(Long id);
 
     FlightDTO addTouristByFlightId();
 

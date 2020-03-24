@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.api.mappers.FlightExtMapper;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.controllers.FlightController;
 import pl.jedro.spaceflysystem.model.Flight;
@@ -26,6 +27,7 @@ import static org.mockito.Mockito.when;
 class FlightServiceImpTest {
     FlightService flightService;
     FlightMapper flightMapper = FlightMapper.INSTANCE;
+
     @Mock
     FlightRepository flightRepository;
 
@@ -66,7 +68,6 @@ class FlightServiceImpTest {
         when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
         FlightDTO flightDTO = flightService.getFlightById(1L);
         assertEquals(6, flightDTO.getSeatQuantity());
-        assertEquals(flightDTO.getFlightUrl(), FlightController.BASE_URL+"/"+flight.getId());
     }
 
 
@@ -81,7 +82,6 @@ class FlightServiceImpTest {
         when(flightRepository.save(any(Flight.class))).thenReturn(savedFlight);
         FlightDTO savedDTO = flightService.createFlight(flightDTO);
         assertEquals(savedFlight.getSeatQuantity(), savedDTO.getSeatQuantity());
-        assertEquals("/api/v1/flights/1", savedDTO.getFlightUrl());
     }
 
     @Test

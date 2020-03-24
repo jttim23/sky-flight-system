@@ -65,16 +65,14 @@ class FlightControllerTest extends AbstractRestControllerTest {
     @Test
     void createFlight() throws Exception {
         FlightDTO flightDTO = new FlightDTO();
-        flightDTO.setFlightUrl(FlightController.BASE_URL + "/1");
+
         flightDTO.setSeatQuantity(5);
 
         FlightDTO returnDto = new FlightDTO();
         returnDto.setSeatQuantity(flightDTO.getSeatQuantity());
-        returnDto.setFlightUrl(flightDTO.getFlightUrl());
         when(flightService.createFlight(any())).thenReturn(returnDto);
 
         mockMvc.perform(post(FlightController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(asJsonString(flightDTO)))
-                .andExpect(status().isCreated()).andExpect(jsonPath("$.seatQuantity", equalTo(5)))
-                .andExpect(jsonPath("$.flightUrl", equalTo(FlightController.BASE_URL + "/1")));
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.seatQuantity", equalTo(5)));
     }
 }
