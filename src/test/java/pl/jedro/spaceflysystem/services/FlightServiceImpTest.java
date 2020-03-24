@@ -8,6 +8,7 @@ import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
+import pl.jedro.spaceflysystem.controllers.FlightController;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
@@ -49,24 +50,24 @@ class FlightServiceImpTest {
 
     }
 
-//    @Test
-//    void getFlightById() throws Exception {
-//        Tourist tourist1 = new Tourist();
-//        tourist1.setId(1L);
-//        tourist1.setName("Jimmy");
-//        Tourist tourist2 = new Tourist();
-//        tourist2.setId(2L);
-//        tourist2.setName("Eve");
-//        List<Tourist> tourists = Arrays.asList(tourist1, tourist2);
-//        Flight flight = new Flight();
-//        flight.setSeatQuantity(6);
-//        flight.setId(1L);
-//        flight.setTourists(tourists);
-//        when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
-//        FlightDTO flightDTO = flightService.getFlightById(1L);
-//        assertEquals(6, flightDTO.getSeatQuantity());
-//        assertEquals(flightDTO.getTourists().get(0).getName(), tourists.get(0).getName());
-//    }
+    @Test
+    void getFlightById() throws Exception {
+        Tourist tourist1 = new Tourist();
+        tourist1.setId(1L);
+        tourist1.setName("Jimmy");
+        Tourist tourist2 = new Tourist();
+        tourist2.setId(2L);
+        tourist2.setName("Eve");
+        List<Tourist> tourists = Arrays.asList(tourist1, tourist2);
+        Flight flight = new Flight();
+        flight.setSeatQuantity(6);
+        flight.setId(1L);
+        flight.setTourists(tourists);
+        when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
+        FlightDTO flightDTO = flightService.getFlightById(1L);
+        assertEquals(6, flightDTO.getSeatQuantity());
+        assertEquals(flightDTO.getFlightUrl(), FlightController.BASE_URL+"/"+flight.getId());
+    }
 
 
     @Test

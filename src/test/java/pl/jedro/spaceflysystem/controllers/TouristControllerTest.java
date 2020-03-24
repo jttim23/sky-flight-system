@@ -50,7 +50,7 @@ class TouristControllerTest extends AbstractRestControllerTest {
         when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1, tourist2));
 
         mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.tourists", hasSize(2)));
+                .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
 
     }
 

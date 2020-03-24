@@ -3,7 +3,6 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-import pl.jedro.spaceflysystem.api.DTO.TouristDTOList;
 import pl.jedro.spaceflysystem.services.TouristService;
 
 import java.util.List;
@@ -25,8 +24,8 @@ public class TouristController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public TouristDTOList getAllTourist() {
-        return new TouristDTOList(touristService.getAllTourists());
+    public List<TouristDTO> getAllTourist() {
+        return touristService.getAllTourists();
     }
 
     @PostMapping

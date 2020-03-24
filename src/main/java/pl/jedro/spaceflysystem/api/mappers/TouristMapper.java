@@ -11,11 +11,8 @@ import java.util.List;
 public interface TouristMapper {
     TouristMapper INSTANCE = Mappers.getMapper(TouristMapper.class);
 
-    TouristDTO touristToTouristDTO(Tourist tourist);
+    TouristDTO touristToDTO(Tourist tourist);
 
     Tourist touristDTOToTourist(TouristDTO touristDTO);
 
-    List<Tourist> touristDTOListToTouristList(List<TouristDTO> touristDTOS);
-
-    List<TouristDTO> touristListToTouristDTOList(List<Tourist> tourists);
 }

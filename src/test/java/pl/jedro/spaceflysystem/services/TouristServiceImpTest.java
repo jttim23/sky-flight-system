@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
+import pl.jedro.spaceflysystem.controllers.TouristController;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.TouristRepository;
@@ -65,7 +66,7 @@ class TouristServiceImpTest {
         when(touristsRepository.findById(anyLong())).thenReturn(Optional.ofNullable(tourist));
         TouristDTO touristDTO = touristService.getTouristById(1L);
         assertEquals("Jimmy", touristDTO.getName());
-        assertEquals(touristDTO.getFlights().get(0).getSeatQuantity(), flights.get(0).getSeatQuantity());
+        assertEquals(touristDTO.getTouristUrl(), TouristController.BASE_URL+"/"+ tourist.getId());
     }
 
     @Test

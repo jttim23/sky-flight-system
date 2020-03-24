@@ -51,7 +51,7 @@ class FlightControllerTest extends AbstractRestControllerTest {
         when(flightService.getAllFlights()).thenReturn(Arrays.asList(flight1, flight2));
 
         mockMvc.perform(get(FlightController.BASE_URL).accept(MediaType.APPLICATION_JSON).
-                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.flights", hasSize(2)));
+                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test

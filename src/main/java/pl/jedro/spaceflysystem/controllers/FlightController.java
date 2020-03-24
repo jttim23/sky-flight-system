@@ -3,8 +3,9 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-import pl.jedro.spaceflysystem.api.DTO.FlightDTOList;
 import pl.jedro.spaceflysystem.services.FlightService;
+
+import java.util.List;
 
 
 @RestController
@@ -19,17 +20,17 @@ public class FlightController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public FlightDTOList getAllFlights() {
-        return new FlightDTOList(flightService.getAllFlights());
+    public List<FlightDTO> getAllFlights(){
+        return flightService.getAllFlights();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     @ResponseStatus(HttpStatus.OK)
     public FlightDTO getFlightById(@PathVariable Long id) {
         return flightService.getFlightById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id")
     @ResponseStatus(HttpStatus.OK)
     public void deleteFlightById(@PathVariable Long id) {
         flightService.deleteFlight(id);

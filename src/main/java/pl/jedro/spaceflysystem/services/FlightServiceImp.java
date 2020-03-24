@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
+import pl.jedro.spaceflysystem.controllers.FlightController;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 
@@ -22,14 +23,16 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public FlightDTO getFlightById(Long id) {
-        return flightRepository.findById(id).map(flightMapper::flightToFlightDTO)
+        FlightDTO returnDTO= flightRepository.findById(id).map(flightMapper::flightToDTO)
                 .orElseThrow(RuntimeException::new);
+        returnDTO.setFlightUrl(FlightController.BASE_URL+"/"+id);
+        return returnDTO;
     }
 
     @Override
     public List<FlightDTO> getAllFlights() {
         return flightRepository.findAll().stream().map(flight -> {
-            FlightDTO flightDTO = flightMapper.flightToFlightDTO(flight);
+            FlightDTO flightDTO = flightMapper.flightToDTO(flight);
             flightDTO.setFlightUrl("/api/v1/flights/" + flight.getId());
             return flightDTO;
         }).collect(Collectors.toList());
@@ -42,7 +45,7 @@ public class FlightServiceImp implements FlightService {
 
     private FlightDTO saveAndReturnDTO(Flight flight) {
         Flight savedFlight = flightRepository.save(flight);
-        FlightDTO flightDTO = flightMapper.flightToFlightDTO(savedFlight);
+        FlightDTO flightDTO = flightMapper.flightToDTO(savedFlight);
         flightDTO.setFlightUrl("/api/v1/flights/" + savedFlight.getId());
         return flightDTO;
     }
