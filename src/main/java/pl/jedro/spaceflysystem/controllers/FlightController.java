@@ -24,7 +24,10 @@ public class FlightController {
     public List<TouristDTO> getFlightTourists(@PathVariable Long id) {
         return flightService.getFlightTourists(id);
     }
-
+    @PostMapping("/{id}/tourists")
+    public List<TouristDTO> addTouristtoFlight(@PathVariable Long id,@RequestParam(name = "tourist_id")Long touristId){
+        return flightService.addTouristToFlight(id,touristId);
+    }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<FlightDTO> getAllFlights() {

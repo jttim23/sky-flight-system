@@ -72,7 +72,7 @@ class TouristServiceImpTest {
         when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
 
         when(touristsRepository.findById(anyLong())).thenReturn(Optional.of(tourist1));
-      
+
 
         //Null pointer Exception, todo.
         //  when(touristService.getTouristFlights(anyLong())).thenReturn(flightDTOS);

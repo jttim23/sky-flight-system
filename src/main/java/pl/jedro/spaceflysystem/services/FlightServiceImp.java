@@ -7,7 +7,9 @@ import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
+import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
+import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,12 +18,13 @@ import java.util.stream.Collectors;
 public class FlightServiceImp implements FlightService {
     private FlightRepository flightRepository;
     private FlightMapper flightMapper;
+    private TouristRepository touristRepository;
 
 
-    public FlightServiceImp(FlightRepository flightRepository, FlightMapper flightMapper) {
+    public FlightServiceImp(FlightRepository flightRepository, FlightMapper flightMapper, TouristRepository touristRepository) {
         this.flightRepository = flightRepository;
         this.flightMapper = flightMapper;
-
+        this.touristRepository = touristRepository;
     }
 
     @Override
@@ -69,8 +72,20 @@ public class FlightServiceImp implements FlightService {
     }
 
     @Override
-    public FlightDTO addTouristByFlightId() {
-        return null;
+    public List<TouristDTO> addTouristToFlight(Long flightId, Long touristId) {
+        Flight flight = flightRepository.findById(flightId).get();
+        Tourist tourist = touristRepository.findById(touristId).get();
+
+        flight.addTourist(tourist);
+        tourist.addFlight(flight);
+
+        flightRepository.save(flight);
+        touristRepository.save(tourist);
+
+        return getFlightTourists(flightId);
+
+
+
     }
 
     @Override

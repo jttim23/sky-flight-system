@@ -20,7 +20,7 @@ public interface FlightService {
 
     Flight getFlightByIdTest(Long id);
 
-    FlightDTO addTouristByFlightId();
+    List<TouristDTO> addTouristToFlight(Long flightId, Long touristId);
 
     FlightDTO deleteTouristByFlightId();
 

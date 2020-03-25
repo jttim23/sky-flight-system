@@ -9,6 +9,7 @@ import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
+import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,11 +26,13 @@ class FlightServiceImpTest {
 
     @Mock
     FlightRepository flightRepository;
+    @Mock
+    TouristRepository touristRepository;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        flightService = new FlightServiceImp(flightRepository, flightMapper);
+        flightService = new FlightServiceImp(flightRepository, flightMapper,touristRepository);
     }
 
     @Test
