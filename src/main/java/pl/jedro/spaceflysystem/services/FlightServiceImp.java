@@ -2,11 +2,9 @@ package pl.jedro.spaceflysystem.services;
 
 import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-
-import pl.jedro.spaceflysystem.api.DTO.FlightDTOExtended;
-import pl.jedro.spaceflysystem.api.mappers.FlightExtMapper;
+import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
-
+import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
@@ -27,9 +25,16 @@ public class FlightServiceImp implements FlightService {
     }
 
     @Override
-    public FlightDTOExtended getFlightById(Long id) {
-        return flightRepository.findById(id).map(flightMapper::flightToDTOExt)
+    public FlightDTO getFlightById(Long id) {
+        return flightRepository.findById(id).map(flightMapper::flightToDTO)
                 .orElseThrow(ResourceNotFoundException::new);
+
+
+    }
+
+    @Override
+    public Flight getFlightByIdTest(Long id) {
+        return flightRepository.findById(id).get();
 
 
     }
@@ -49,6 +54,12 @@ public class FlightServiceImp implements FlightService {
         Flight savedFlight = flightRepository.save(flight);
         return flightMapper.flightToDTO(savedFlight);
 
+    }
+
+    @Override
+    public List<TouristDTO> getFlightTourists(Long id) {
+        TouristMapper mapper = TouristMapper.INSTANCE;
+        return mapper.listToDTO(flightRepository.getOne(id).getTourists());
     }
 
     @Override

@@ -3,8 +3,9 @@ package pl.jedro.spaceflysystem.api.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-import pl.jedro.spaceflysystem.api.DTO.TouristDTOExtended;
 import pl.jedro.spaceflysystem.model.Tourist;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TouristMapper {
@@ -13,8 +14,8 @@ public interface TouristMapper {
     TouristDTO touristToDTO(Tourist tourist);
 
     Tourist touristDTOToTourist(TouristDTO touristDTO);
-    Tourist DTOExtToTourist(TouristDTOExtended touristDTO);
 
-    TouristDTOExtended touristToDTOExt(Tourist tourist);
+    List<TouristDTO> listToDTO(List<Tourist> tourists);
+
 
 }

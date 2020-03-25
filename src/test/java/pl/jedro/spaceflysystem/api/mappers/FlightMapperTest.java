@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.model.Flight;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FlightMapperTest {
     public static final int seats = 6;

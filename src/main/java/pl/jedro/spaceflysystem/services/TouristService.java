@@ -1,15 +1,16 @@
 package pl.jedro.spaceflysystem.services;
 
+import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-import pl.jedro.spaceflysystem.api.DTO.TouristDTOExtended;
-import pl.jedro.spaceflysystem.model.Tourist;
 
 import java.util.List;
 
 public interface TouristService {
     List<TouristDTO> getAllTourists();
 
-    TouristDTOExtended getTouristById(Long id);
+    TouristDTO getTouristById(Long id);
+
+    List<FlightDTO> getTouristFlights(Long id);
 
     TouristDTO createTourist(TouristDTO touristDTO);
 
@@ -17,6 +18,6 @@ public interface TouristService {
 
     TouristDTO deleteFlightByTouristId(Long id);
 
-    TouristDTO addFlightByTouristId(Long id);
+    List<FlightDTO> addFlightByTouristId(Long touristId, Long flightId);
 
 }

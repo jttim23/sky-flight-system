@@ -7,10 +7,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-
 import pl.jedro.spaceflysystem.services.TouristService;
 
 import java.util.Arrays;
@@ -37,6 +36,22 @@ class TouristControllerTest extends AbstractRestControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(touristController)
                 .setControllerAdvice(new RuntimeException()).build();
+    }
+
+    @Test
+    void addFlightTest() throws Exception {
+
+        FlightDTO flight1 = new FlightDTO();
+        flight1.setSeatQuantity(6);
+
+        FlightDTO flight2 = new FlightDTO();
+        flight2.setSeatQuantity(5);
+
+        when(touristService.addFlightByTouristId(anyLong(), anyLong())).thenReturn(Arrays.asList(flight1, flight2));
+        mockMvc.perform(post(TouristController.BASE_URL + "/2/flights").param("flight_id", String.valueOf(1L))
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated()).andExpect(jsonPath("$", hasSize(2)));
+
     }
 
     @Test

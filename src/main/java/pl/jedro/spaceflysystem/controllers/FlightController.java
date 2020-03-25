@@ -3,7 +3,8 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-import pl.jedro.spaceflysystem.api.DTO.FlightDTOExtended;
+import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.services.FlightService;
 
 import java.util.List;
@@ -19,6 +20,11 @@ public class FlightController {
         this.flightService = flightService;
     }
 
+    @GetMapping("/{id}/tourists")
+    public List<TouristDTO> getFlightTourists(@PathVariable Long id) {
+        return flightService.getFlightTourists(id);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<FlightDTO> getAllFlights() {
@@ -27,8 +33,14 @@ public class FlightController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FlightDTOExtended getFlightById(@PathVariable Long id) {
+    public FlightDTO getFlightById(@PathVariable Long id) {
         return flightService.getFlightById(id);
+    }
+
+    @GetMapping("/test/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Flight getFlightByIdTest(@PathVariable Long id) {
+        return flightService.getFlightByIdTest(id);
     }
 
     @DeleteMapping("/{id}")

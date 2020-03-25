@@ -3,7 +3,6 @@ package pl.jedro.spaceflysystem.api.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-import pl.jedro.spaceflysystem.api.DTO.FlightDTOExtended;
 import pl.jedro.spaceflysystem.model.Flight;
 
 import java.util.List;
@@ -15,8 +14,7 @@ public interface FlightMapper {
     Flight flightDTOToFlight(FlightDTO flightDTO);
 
     FlightDTO flightToDTO(Flight flight);
-    Flight DTOExtToFlight(FlightDTOExtended flightDTO);
 
-    FlightDTOExtended flightToDTOExt(Flight flight);
+    List<FlightDTO> listToDTO(List<Flight> flights);
 
 }

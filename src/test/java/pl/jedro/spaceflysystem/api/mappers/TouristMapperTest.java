@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.model.Tourist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TouristMapperTest {
     TouristMapper touristMapper = TouristMapper.INSTANCE;

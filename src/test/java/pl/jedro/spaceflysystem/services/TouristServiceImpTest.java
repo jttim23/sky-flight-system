@@ -4,21 +4,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-import pl.jedro.spaceflysystem.api.mappers.TouristExtMapper;
+import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
-import pl.jedro.spaceflysystem.controllers.TouristController;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
+import pl.jedro.spaceflysystem.repositories.FlightRepository;
 import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class TouristServiceImpTest {
@@ -26,11 +28,13 @@ class TouristServiceImpTest {
     TouristRepository touristsRepository;
     TouristMapper touristMapper = TouristMapper.INSTANCE;
     TouristService touristService;
+    @Mock
+    FlightRepository flightRepository;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        touristService = new TouristServiceImp( touristMapper,touristsRepository);
+        touristService = new TouristServiceImp(touristMapper, touristsRepository, flightRepository);
 
     }
 
@@ -46,6 +50,39 @@ class TouristServiceImpTest {
         when(touristsRepository.findAll()).thenReturn(Arrays.asList(tourist1, tourist2));
         List<TouristDTO> touristDTOS = touristService.getAllTourists();
         assertEquals(2, touristDTOS.size());
+    }
+
+    @Test
+    void addFlightTest() throws Exception {
+        Flight flight = new Flight();
+        flight.setId(2L);
+        flight.setTourists(new ArrayList<Tourist>());
+        flight.setSeatQuantity(7);
+        flight.setTicketPrice(45.12);
+
+        Tourist tourist1 = new Tourist();
+        tourist1.setId(1L);
+        tourist1.setName("Jimmy");
+        tourist1.setFlights(new ArrayList<Flight>());
+        tourist1.setLastName("adadad");
+        List<FlightDTO> flightDTOS = new ArrayList<FlightDTO>();
+        FlightMapper mapper = FlightMapper.INSTANCE;
+        flightDTOS.add(mapper.flightToDTO(flight));
+
+        when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
+
+        when(touristsRepository.findById(anyLong())).thenReturn(Optional.of(tourist1));
+      
+
+        //Null pointer Exception, todo.
+        //  when(touristService.getTouristFlights(anyLong())).thenReturn(flightDTOS);
+
+        //List<FlightDTO> DTOS = touristService.addFlightByTouristId(1L, 2L);
+      //  assertEquals(DTOS.size(), 1);
+        //assertEquals(DTOS.get(0).getId(), 2L);
+        //assertEquals(tourist1.getFlights().size(), 1);
+
+
     }
 
     @Test

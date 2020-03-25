@@ -5,11 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-
-import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
-import pl.jedro.spaceflysystem.api.mappers.FlightExtMapper;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
-import pl.jedro.spaceflysystem.controllers.FlightController;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
@@ -18,10 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 
 class FlightServiceImpTest {
