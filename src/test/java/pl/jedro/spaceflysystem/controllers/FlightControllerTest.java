@@ -52,7 +52,7 @@ class FlightControllerTest extends AbstractRestControllerTest {
     void deleteFlightById() throws Exception {
 
         mockMvc.perform(delete(FlightController.BASE_URL + "/1").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isFound());
         verify(flightService, times(1)).deleteFlight(anyLong());
     }
 

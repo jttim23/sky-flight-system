@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -33,6 +34,17 @@ public class Flight {
 
     public void addTourist(Tourist tourist) {
         tourists.add(tourist);
+    }
+    public void deleteTourist(Long id){
+        List<Tourist> returnList = new ArrayList<Tourist>();
+        tourists.stream().map(tourist -> {
+
+            if (tourist.getId() !=id){
+                returnList.add(tourist);
+            }
+            return returnList;
+        });
+        this.setTourists(returnList);
     }
 
 }

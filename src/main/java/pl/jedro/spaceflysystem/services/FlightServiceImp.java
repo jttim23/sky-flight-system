@@ -89,7 +89,14 @@ public class FlightServiceImp implements FlightService {
     }
 
     @Override
-    public FlightDTO deleteTouristByFlightId() {
-        return null;
+    public void deleteTouristInFlight(Long flightId,Long touristId) {
+        Flight flight = flightRepository.findById(flightId).get();
+        Tourist tourist = touristRepository.findById(touristId).get();
+
+        flight.deleteTourist(touristId);
+        tourist.deleteFlight(flightId);
+
+        flightRepository.save(flight);
+        touristRepository.save(tourist);
     }
 }

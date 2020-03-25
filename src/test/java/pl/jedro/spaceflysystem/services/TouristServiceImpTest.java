@@ -132,7 +132,7 @@ class TouristServiceImpTest {
     }
 
     @Test
-    void deleteFlightByTouristId() throws Exception {
+    void deleteFlightInTourist() throws Exception {
 
         Flight flight1 = new Flight();
         flight1.setSeatQuantity(6);
@@ -148,7 +148,7 @@ class TouristServiceImpTest {
     }
 
     @Test
-    void addFlightByTouristId() throws Exception {
-        //not implemented yet
+    void addFlightTOTourist() throws Exception {
+
     }
 }

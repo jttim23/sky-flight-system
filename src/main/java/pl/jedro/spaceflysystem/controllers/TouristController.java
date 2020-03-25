@@ -2,10 +2,14 @@ package pl.jedro.spaceflysystem.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.services.TouristService;
 
+import javax.imageio.IIOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -38,11 +42,16 @@ public class TouristController {
 
     @PostMapping("/{id}/flights")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FlightDTO> addFlight(@PathVariable Long id, @RequestParam(name = "flight_id") Long flightId) {
-        return touristService.addFlightByTouristId(id, flightId);
+    public List<FlightDTO> addFlightToTourist(@PathVariable Long id, @RequestParam(name = "flight_id") Long flightId) {
+        return touristService.addFlightTOTourist(id, flightId);
     }
+    @DeleteMapping("/{id}/flights")
+    public void deleteFlightInTourist(HttpServletResponse response,@PathVariable Long id,
+                                                 @RequestParam(name = "flight_id") Long flightId) throws IOException {
+      touristService.deleteFlightInTourist(id, flightId);
+        response.sendRedirect(BASE_URL+"/"+id+"/flights");
 
-
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TouristDTO createTourist(@RequestBody TouristDTO touristDTO) {
@@ -51,8 +60,10 @@ public class TouristController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTourist(@PathVariable Long id) {
+
+    public void deleteTourist(HttpServletResponse response, @PathVariable Long id) throws IOException {
         touristService.deleteTouristById(id);
+        response.sendRedirect(BASE_URL);
     }
 
 }

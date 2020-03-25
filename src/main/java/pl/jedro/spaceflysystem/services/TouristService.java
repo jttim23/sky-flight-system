@@ -16,8 +16,8 @@ public interface TouristService {
 
     void deleteTouristById(Long id);
 
-    TouristDTO deleteFlightByTouristId(Long id);
+    void deleteFlightInTourist(Long id, Long flightId);
 
-    List<FlightDTO> addFlightByTouristId(Long touristId, Long flightId);
+    List<FlightDTO> addFlightTOTourist(Long touristId, Long flightId);
 
 }

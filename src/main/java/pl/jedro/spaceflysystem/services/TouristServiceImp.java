@@ -64,12 +64,19 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public TouristDTO deleteFlightByTouristId(Long id) {
-        return null;
+    public void deleteFlightInTourist(Long touristId,Long flightId){
+        Tourist tourist = touristsRepository.findById(touristId).get();
+        Flight flight = flightRepository.findById(flightId).get();
+
+        tourist.deleteFlight(flightId);
+        flight.deleteTourist(touristId);
+
+        touristsRepository.save(tourist);
+        flightRepository.save(flight);
     }
 
     @Override
-    public List<FlightDTO> addFlightByTouristId(Long touristId, Long flightId) {
+    public List<FlightDTO> addFlightTOTourist(Long touristId, Long flightId) {
 
         Tourist tourist = touristsRepository.findById(touristId).get();
         Flight flight = flightRepository.findById(flightId).get();

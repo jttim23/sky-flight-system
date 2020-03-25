@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -38,6 +40,17 @@ public class Tourist {
 
     public void addFlight(Flight flight) {
         flights.add(flight);
+    }
+    public void deleteFlight(Long id){
+        List<Flight> returnList = new ArrayList<Flight>();
+        flights.stream().map(flight -> {
+
+            if (flight.getId()!=id){
+                returnList.add(flight);
+            }
+            return returnList;
+        });
+        this.setFlights(returnList);
     }
 
 

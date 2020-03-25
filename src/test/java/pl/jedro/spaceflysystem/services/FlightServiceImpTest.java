@@ -11,6 +11,7 @@ import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -88,15 +89,22 @@ class FlightServiceImpTest {
         flightRepository.deleteById(id);
         verify(flightRepository, times(1)).deleteById(anyLong());
     }
-
-    @Test
-    void addTouristByFlightId() throws Exception {
-        Tourist tourist1 = new Tourist();
-        tourist1.setId(1L);
-        tourist1.setName("Jimmy");
-        Tourist tourist2 = new Tourist();
-        tourist2.setId(2L);
-        tourist2.setName("Eve");
-    }
+//todo
+//    @Test
+//    void addTouristToFlight() throws Exception {
+//        Tourist tourist1 = new Tourist();
+//        tourist1.setId(1L);
+//        tourist1.setName("Jimmy");
+//        Tourist tourist2 = new Tourist();
+//        tourist2.setId(2L);
+//        tourist2.setName("Eve");
+//    }
+//    @Test
+//    void deleteTouristInFlight() throws Exception{
+//        Long id = 1L;
+//        flightService.deleteTouristInFlight(id,id);
+//  verify(flightService,times(1)).deleteTouristInFlight(anyLong(),anyLong());
+//
+//    }
 
 }

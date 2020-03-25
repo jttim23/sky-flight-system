@@ -7,6 +7,8 @@ import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.services.FlightService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -48,8 +50,16 @@ public class FlightController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteFlightById(@PathVariable Long id) {
+    public void deleteFlightById(HttpServletResponse response, @PathVariable Long id) throws IOException {
         flightService.deleteFlight(id);
+        response.sendRedirect(BASE_URL);
+    }
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public  void deleteTouristInFlight(HttpServletResponse response, @PathVariable Long id,
+                                       @RequestParam(name = "tourist_id")Long touristId) throws IOException {
+        flightService.deleteTouristInFlight(id,touristId);
+        response.sendRedirect(BASE_URL+"/"+id+"/tourists");
     }
 
     @PostMapping

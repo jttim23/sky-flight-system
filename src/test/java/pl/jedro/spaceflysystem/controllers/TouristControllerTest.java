@@ -47,7 +47,7 @@ class TouristControllerTest extends AbstractRestControllerTest {
         FlightDTO flight2 = new FlightDTO();
         flight2.setSeatQuantity(5);
 
-        when(touristService.addFlightByTouristId(anyLong(), anyLong())).thenReturn(Arrays.asList(flight1, flight2));
+        when(touristService.addFlightTOTourist(anyLong(), anyLong())).thenReturn(Arrays.asList(flight1, flight2));
         mockMvc.perform(post(TouristController.BASE_URL + "/2/flights").param("flight_id", String.valueOf(1L))
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$", hasSize(2)));
@@ -87,7 +87,7 @@ class TouristControllerTest extends AbstractRestControllerTest {
     @Test
     void deleteTourist() throws Exception {
         mockMvc.perform(delete(TouristController.BASE_URL + "/1").
-                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                contentType(MediaType.APPLICATION_JSON)).andExpect(status().isFound());
         verify(touristService, times(1)).deleteTouristById(anyLong());
     }
 }
