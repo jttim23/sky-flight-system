@@ -11,7 +11,6 @@ import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
 import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,7 @@ class FlightServiceImpTest {
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        flightService = new FlightServiceImp(flightRepository, flightMapper,touristRepository);
+        flightService = new FlightServiceImp(flightRepository, flightMapper, touristRepository);
     }
 
     @Test
@@ -46,8 +45,8 @@ class FlightServiceImpTest {
         flight2.setId(2L);
 
         when(flightRepository.findAll()).thenReturn(Arrays.asList(flight1, flight2));
-        List<FlightDTO> flightDTOS = flightService.getAllFlights();
-        assertEquals(2, flightDTOS.size());
+        List<Flight> flights = flightService.getAllFlights();
+        assertEquals(2, flights.size());
 
     }
 

@@ -11,12 +11,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TouristDTO {
-    private Long id;
     private String name;
     private String lastName;
-    private String sex;
+    private String gender;
     private String country;
     private String notes;
     private LocalDate dateOfBirth;
+    private String touristUrl;
 
 }

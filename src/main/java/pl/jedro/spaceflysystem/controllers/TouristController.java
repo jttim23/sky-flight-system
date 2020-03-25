@@ -2,12 +2,11 @@ package pl.jedro.spaceflysystem.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.model.Flight;
+import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.services.TouristService;
 
-import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +23,7 @@ public class TouristController {
 
     @GetMapping("/{id}/flights")
     @ResponseStatus(HttpStatus.OK)
-    public List<FlightDTO> getTouristFlights(@PathVariable Long id) {
+    public List<Flight> getTouristFlights(@PathVariable Long id) {
         return touristService.getTouristFlights(id);
     }
 
@@ -36,27 +35,22 @@ public class TouristController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TouristDTO> getAllTourist() {
+    public List<Tourist> getAllTourist() {
         return touristService.getAllTourists();
     }
 
-    @PostMapping("/{id}/flights")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<FlightDTO> addFlightToTourist(@PathVariable Long id, @RequestParam(name = "flight_id") Long flightId) {
-        return touristService.addFlightTOTourist(id, flightId);
-    }
-    @DeleteMapping("/{id}/flights")
-    public void deleteFlightInTourist(HttpServletResponse response,@PathVariable Long id,
-                                                 @RequestParam(name = "flight_id") Long flightId) throws IOException {
-      touristService.deleteFlightInTourist(id, flightId);
-        response.sendRedirect(BASE_URL+"/"+id+"/flights");
-
-    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TouristDTO createTourist(@RequestBody TouristDTO touristDTO) {
         return touristService.createTourist(touristDTO);
     }
+
+    @PostMapping("/{id}/flights")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Flight> addFlightToTourist(@PathVariable Long id, @RequestParam(name = "flight_id") Long flightId) {
+        return touristService.addFlightTOTourist(id, flightId);
+    }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -64,6 +58,14 @@ public class TouristController {
     public void deleteTourist(HttpServletResponse response, @PathVariable Long id) throws IOException {
         touristService.deleteTouristById(id);
         response.sendRedirect(BASE_URL);
+    }
+
+    @DeleteMapping("/{id}/flights")
+    public void deleteFlightInTourist(HttpServletResponse response, @PathVariable Long id,
+                                      @RequestParam(name = "flight_id") Long flightId) throws IOException {
+        touristService.deleteFlightInTourist(id, flightId);
+        response.sendRedirect(BASE_URL + "/" + id + "/flights");
+
     }
 
 }

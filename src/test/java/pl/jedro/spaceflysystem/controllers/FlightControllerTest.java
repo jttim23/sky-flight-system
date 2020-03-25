@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
+import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.services.FlightService;
 
 import java.util.Arrays;
@@ -35,10 +36,10 @@ class FlightControllerTest extends AbstractRestControllerTest {
 
     @Test
     void getAllFlights() throws Exception {
-        FlightDTO flight1 = new FlightDTO();
+        Flight flight1 = new Flight();
         flight1.setSeatQuantity(6);
 
-        FlightDTO flight2 = new FlightDTO();
+        Flight flight2 = new Flight();
         flight2.setSeatQuantity(5);
 
 

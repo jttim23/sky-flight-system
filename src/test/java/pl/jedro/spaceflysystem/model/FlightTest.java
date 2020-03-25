@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FlightTest {
     @Test
-    void deleteTouristTest(){
+    void deleteTouristTest() {
         Tourist tourist = new Tourist();
         tourist.setId(1L);
         tourist.setName("Jimmy");
@@ -18,11 +18,12 @@ class FlightTest {
         flight.setSeatQuantity(6);
         flight.setTourists(Arrays.asList(tourist));
         flight.deleteTourist(1L);
-        assertEquals(flight.getTourists().size(),0);
+        assertEquals(flight.getTourists().size(), 0);
 
     }
+
     @Test
-    void addTouristTest(){
+    void addTouristTest() {
         Tourist tourist = new Tourist();
         tourist.setId(1L);
         tourist.setName("Jimmy");
@@ -31,7 +32,7 @@ class FlightTest {
         flight.setSeatQuantity(6);
         flight.setTourists(new ArrayList<>());
         flight.addTourist(tourist);
-        assertEquals(flight.getTourists().size(),1);
+        assertEquals(flight.getTourists().size(), 1);
 
     }
 

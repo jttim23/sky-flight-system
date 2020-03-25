@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FlightDTO {
-    private Long id;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private int seatQuantity;
     private double ticketPrice;
-
+    private String flightUrl;
 }
