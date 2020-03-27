@@ -1,15 +1,14 @@
 package pl.jedro.spaceflysystem.controllers;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.model.Flight;
+import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.services.TouristService;
 
 import java.util.Arrays;
@@ -19,25 +18,16 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(TouristController.class)
 class TouristControllerTest extends AbstractRestControllerTest {
-    @Mock
+    @MockBean
     private TouristService touristService;
-    @InjectMocks
-    private TouristController touristController;
-
+    @Autowired
     MockMvc mockMvc;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(touristController)
-                .setControllerAdvice(new RuntimeException()).build();
-    }
 
     @Test
     void addFlightTest() throws Exception {
@@ -55,20 +45,21 @@ class TouristControllerTest extends AbstractRestControllerTest {
 
     }
 
-//    @Test
-//    void getAllTourists() throws Exception {
-//        TouristDTO tourist1 = new TouristDTO();
-//        tourist1.setName("Jimmy");
-//
-//        TouristDTO tourist2 = new TouristDTO();
-//        tourist2.setName("Eve");
-//
-//        when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1, tourist2));
-//
-//        mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+    @Test
+    void getAllTourists() throws Exception {
+        Tourist tourist1 = new Tourist();
+        tourist1.setName("Jimmy");
 
-    //}
+        Tourist tourist2 = new Tourist();
+        tourist2.setName("Eve");
+
+        when(touristService.getAllTourists()).thenReturn(Arrays.asList(tourist1, tourist2));
+
+        mockMvc.perform(get(TouristController.BASE_URL).accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+
+    }
 
     @Test
     void createTourist() throws Exception {
@@ -89,6 +80,6 @@ class TouristControllerTest extends AbstractRestControllerTest {
     void deleteTourist() throws Exception {
         mockMvc.perform(delete(TouristController.BASE_URL + "/1").
                 contentType(MediaType.APPLICATION_JSON)).andExpect(status().isFound());
-        verify(touristService, times(1)).deleteTouristById(anyLong());
+        verify(touristService, times(1)).deleteTourist(anyLong());
     }
 }

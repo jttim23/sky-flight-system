@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.controllers.TouristController;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
 import pl.jedro.spaceflysystem.model.Flight;
@@ -41,7 +42,6 @@ public class TouristServiceImp implements TouristService {
             touristDTO.setTouristUrl(getTouristUrl(id));
             return touristDTO;
         }).orElseThrow(ResourceNotFoundException::new);
-
     }
 
     @Override
@@ -61,23 +61,19 @@ public class TouristServiceImp implements TouristService {
         } else throw new ResourcePresentException("This tourist is already signed up");
     }
 
-
     @Override
-    public void deleteTouristById(Long id) {
+    public void deleteTourist(Long id) {
         touristsRepository.deleteById(id);
-
     }
 
     @Override
     public List<Flight> getTouristFlights(Long id) {
 
         return touristsRepository.getOne(id).getFlights();
-
-
     }
 
     @Override
-    public void deleteFlightInTourist(Long touristId, Long flightId) {
+    public void deleteFlightInTourist(Long touristId, Long flightId) throws DeleteRequestInvalidException {
         Tourist tourist = touristsRepository.findById(touristId).get();
         Flight flight = flightRepository.findById(flightId).get();
 
@@ -90,18 +86,18 @@ public class TouristServiceImp implements TouristService {
 
     @Override
     public List<Flight> addFlightTOTourist(Long touristId, Long flightId) {
-
         Tourist tourist = touristsRepository.findById(touristId).get();
         Flight flight = flightRepository.findById(flightId).get();
+
         tourist.addFlight(flight);
         flight.addTourist(tourist);
+
         touristsRepository.save(tourist);
         flightRepository.save(flight);
         return getTouristFlights(touristId);
     }
 
     private TouristDTO saveAndReturnDTO(Tourist tourist) {
-
         TouristDTO returnDTO = touristMapper.touristToDTO(touristsRepository.save(tourist));
         returnDTO.setTouristUrl(getTouristUrl(tourist.getId()));
         return returnDTO;

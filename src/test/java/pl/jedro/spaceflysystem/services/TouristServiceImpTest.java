@@ -24,10 +24,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 class TouristServiceImpTest {
-    @Mock
-    TouristRepository touristsRepository;
     TouristMapper touristMapper = TouristMapper.INSTANCE;
     TouristService touristService;
+    @Mock
+    TouristRepository touristsRepository;
     @Mock
     FlightRepository flightRepository;
 
@@ -47,9 +47,9 @@ class TouristServiceImpTest {
         tourist2.setId(2L);
         tourist2.setName("Eve");
 
-//        when(touristsRepository.findAll()).thenReturn(Arrays.asList(tourist1, tourist2));
-//        List<TouristDTO> touristDTOS = touristService.getAllTourists();
-//        assertEquals(2, touristDTOS.size());
+        when(touristsRepository.findAll()).thenReturn(Arrays.asList(tourist1, tourist2));
+        List<Tourist> tourists = touristService.getAllTourists();
+        assertEquals(2, tourists.size());
     }
 
     @Test
@@ -72,16 +72,6 @@ class TouristServiceImpTest {
         when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
 
         when(touristsRepository.findById(anyLong())).thenReturn(Optional.of(tourist1));
-
-
-        //Null pointer Exception, todo.
-        //  when(touristService.getTouristFlights(anyLong())).thenReturn(flightDTOS);
-
-        //List<FlightDTO> DTOS = touristService.addFlightByTouristId(1L, 2L);
-        //  assertEquals(DTOS.size(), 1);
-        //assertEquals(DTOS.get(0).getId(), 2L);
-        //assertEquals(tourist1.getFlights().size(), 1);
-
 
     }
 

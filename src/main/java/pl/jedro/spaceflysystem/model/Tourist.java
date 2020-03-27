@@ -3,7 +3,7 @@ package pl.jedro.spaceflysystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.jedro.spaceflysystem.exceptions.BadRequestException;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
 
 import javax.persistence.*;
@@ -37,7 +37,10 @@ public class Tourist {
     @NotNull(message = "Date of birth required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tourists")
+    @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(name = "flights_tourists",
+            joinColumns = {@JoinColumn(name = "tourist_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id")})
     @JsonIgnore
     private List<Flight> flights;
 
@@ -50,11 +53,11 @@ public class Tourist {
         flights.add(flight);
     }
 
-    public void deleteFlight(Long id) {
+    public void deleteFlight(Long id) throws DeleteRequestInvalidException {
 
         List<Flight> returnList = new ArrayList<Flight>();
         if (flights.size() == 0) {
-            throw new BadRequestException("Tourist does not have flights assigned");
+            throw new DeleteRequestInvalidException("Tourist does not have flights assigned");
         } else {
             for (Flight flight : flights) {
                 if (!flight.getId().equals(id)) {
@@ -63,7 +66,7 @@ public class Tourist {
             }
         }
         if (flights.size() == returnList.size()) {
-            throw new BadRequestException("No flights with id " + id + " assigned to Tourist");
+            throw new DeleteRequestInvalidException("No flights with id " + id + " assigned to Tourist");
         }
         this.setFlights(returnList);
     }

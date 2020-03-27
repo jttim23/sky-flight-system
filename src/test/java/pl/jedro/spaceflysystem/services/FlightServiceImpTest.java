@@ -88,22 +88,6 @@ class FlightServiceImpTest {
         flightRepository.deleteById(id);
         verify(flightRepository, times(1)).deleteById(anyLong());
     }
-//todo
-//    @Test
-//    void addTouristToFlight() throws Exception {
-//        Tourist tourist1 = new Tourist();
-//        tourist1.setId(1L);
-//        tourist1.setName("Jimmy");
-//        Tourist tourist2 = new Tourist();
-//        tourist2.setId(2L);
-//        tourist2.setName("Eve");
-//    }
-//    @Test
-//    void deleteTouristInFlight() throws Exception{
-//        Long id = 1L;
-//        flightService.deleteTouristInFlight(id,id);
-//  verify(flightService,times(1)).deleteTouristInFlight(anyLong(),anyLong());
-//
-//    }
+
 
 }

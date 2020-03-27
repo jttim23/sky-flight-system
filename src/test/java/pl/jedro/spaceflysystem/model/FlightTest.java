@@ -1,6 +1,7 @@
 package pl.jedro.spaceflysystem.model;
 
 import org.junit.jupiter.api.Test;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FlightTest {
     @Test
-    void deleteTouristTest() {
+    void deleteTouristTest() throws DeleteRequestInvalidException {
         Tourist tourist = new Tourist();
         tourist.setId(1L);
         tourist.setName("Jimmy");

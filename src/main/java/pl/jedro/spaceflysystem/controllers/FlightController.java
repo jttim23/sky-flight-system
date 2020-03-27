@@ -3,6 +3,7 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.services.FlightService;
@@ -54,7 +55,7 @@ public class FlightController {
     @DeleteMapping("/{id}/tourists")
     @ResponseStatus(HttpStatus.OK)
     public void deleteTouristInFlight(HttpServletResponse response, @PathVariable Long id,
-                                      @RequestParam(name = "tourist_id") Long touristId) throws IOException {
+                                      @RequestParam(name = "tourist_id") Long touristId) throws IOException, DeleteRequestInvalidException {
         flightService.deleteTouristInFlight(id, touristId);
         response.sendRedirect(BASE_URL + "/" + id + "/tourists");
     }

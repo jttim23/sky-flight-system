@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.controllers.FlightController;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
 import pl.jedro.spaceflysystem.model.Flight;
@@ -47,7 +48,6 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public FlightDTO createFlight(FlightDTO flightDTO) {
-
         ExampleMatcher flightMatcher = ExampleMatcher.matching().withIgnorePaths("id").withIgnorePaths("seatQuantity")
                 .withMatcher("arrivalTime", ignoreCase()).withMatcher("departureTime", ignoreCase())
                 .withMatcher("ticketPrice", ignoreCase());
@@ -72,7 +72,6 @@ public class FlightServiceImp implements FlightService {
     @Override
     public void deleteFlight(Long id) {
         flightRepository.deleteById(id);
-
     }
 
     @Override
@@ -85,27 +84,23 @@ public class FlightServiceImp implements FlightService {
 
         flightRepository.save(flight);
         touristRepository.save(tourist);
-
         return getFlightTourists(flightId);
-
-
     }
 
     @Override
-    public void deleteTouristInFlight(Long flightId, Long touristId) {
-
+    public void deleteTouristInFlight(Long flightId, Long touristId) throws DeleteRequestInvalidException {
         Flight flight = flightRepository.findById(flightId).get();
         Tourist tourist = touristRepository.findById(touristId).get();
 
-        flight.deleteTourist(touristId);
         tourist.deleteFlight(flightId);
+        flight.deleteTourist(touristId);
 
         flightRepository.save(flight);
         touristRepository.save(tourist);
     }
 
-    private FlightDTO saveAndReturnDTO(Flight flight) {
 
+    private FlightDTO saveAndReturnDTO(Flight flight) {
         FlightDTO returnDTO = flightMapper.flightToDTO(flightRepository.save(flight));
         returnDTO.setFlightUrl(getFlightUrl(flight.getId()));
         return returnDTO;
