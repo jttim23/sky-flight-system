@@ -7,8 +7,9 @@ import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.api.mappers.FlightMapper;
 import pl.jedro.spaceflysystem.controllers.FlightController;
 import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
-import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
+import pl.jedro.spaceflysystem.exceptions.FlightNotFoundException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
+import pl.jedro.spaceflysystem.exceptions.TouristNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
@@ -38,7 +39,7 @@ public class FlightServiceImp implements FlightService {
             //set API URL
             flightDTO.setFlightUrl(getFlightUrl(id));
             return flightDTO;
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(FlightNotFoundException::new);
 
     }
 
@@ -86,25 +87,33 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public List<Tourist> addTouristToFlight(Long flightId, Long touristId) {
-        Flight flight = flightRepository.findById(flightId).get();
-        Tourist tourist = touristRepository.findById(touristId).get();
+        Flight savedFlight = flightRepository.findById(flightId).map(flight -> {
+            if (touristRepository.findById(touristId).isPresent()){
+                flight.addTourist(touristRepository.findById(touristId).get());
+            }
+            return flight;
+        }).orElseThrow(FlightNotFoundException::new);
+        Tourist savedTourist = touristRepository.findById(touristId).map(tourist -> {
+            tourist.addFlight(savedFlight);
+            return tourist;
+        }).orElseThrow(TouristNotFoundException::new);
 
-        flight.addTourist(tourist);
-        tourist.addFlight(flight);
-
-        flightRepository.save(flight);
+        flightRepository.save(savedFlight);
         return getFlightTourists(flightId);
     }
 
     @Override
     public void deleteTouristInFlight(Long flightId, Long touristId) {
-        Flight flight = flightRepository.findById(flightId).get();
-        Tourist tourist = touristRepository.findById(touristId).get();
+        Flight savedFlight = flightRepository.findById(flightId).map(flight -> {
+            flight.deleteTourist(touristId);
+            return flight;
+        }).orElseThrow(FlightNotFoundException::new);
+        Tourist savedTourist = touristRepository.findById(touristId).map(tourist -> {
+            tourist.deleteFlight(flightId);
+            return tourist;
+        }).orElseThrow(TouristNotFoundException::new);
 
-        tourist.deleteFlight(flightId);
-        flight.deleteTourist(touristId);
-
-        flightRepository.save(flight);
+        flightRepository.save(savedFlight);
     }
 
 

@@ -1,11 +1,15 @@
 package pl.jedro.spaceflysystem.controllers;
 
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.is;
 
 public class TouristExceptionsTest {
+
+
     @Test
     void sampleGetTest() {
         get(TouristController.BASE_URL + "/1").then().statusCode(200).assertThat().body("name", is("Saba"));

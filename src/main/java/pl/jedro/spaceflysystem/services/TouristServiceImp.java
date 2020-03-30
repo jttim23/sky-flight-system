@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.api.mappers.TouristMapper;
 import pl.jedro.spaceflysystem.controllers.TouristController;
-import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
-import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
+import pl.jedro.spaceflysystem.exceptions.FlightNotFoundException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
+import pl.jedro.spaceflysystem.exceptions.TouristNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.repositories.FlightRepository;
@@ -41,7 +41,7 @@ public class TouristServiceImp implements TouristService {
             // set Api Url
             touristDTO.setTouristUrl(getTouristUrl(id));
             return touristDTO;
-        }).orElseThrow(ResourceNotFoundException::new);
+        }).orElseThrow(TouristNotFoundException::new);
     }
 
     @Override
@@ -74,25 +74,33 @@ public class TouristServiceImp implements TouristService {
 
 
     @Override
-    public void deleteFlightInTourist(Long touristId, Long flightId) throws DeleteRequestInvalidException {
-        Tourist tourist = touristsRepository.findById(touristId).get();
-        Flight flight = flightRepository.findById(flightId).get();
+    public void deleteFlightInTourist(Long touristId, Long flightId) {
+        Tourist savedTourist = touristsRepository.findById(touristId).map(tourist -> {
+            tourist.deleteFlight(flightId);
+            return tourist;
+        }).orElseThrow(TouristNotFoundException::new);
+        Flight savedFight = flightRepository.findById(flightId).map(flight -> {
+            flight.deleteTourist(touristId);
+            return flight;
+        }).orElseThrow(FlightNotFoundException::new);
 
-        tourist.deleteFlight(flightId);
-        flight.deleteTourist(touristId);
-
-        touristsRepository.save(tourist);
+        touristsRepository.save(savedTourist);
     }
 
     @Override
     public List<Flight> addFlightTOTourist(Long touristId, Long flightId) {
-        Tourist tourist = touristsRepository.findById(touristId).get();
-        Flight flight = flightRepository.findById(flightId).get();
+        Tourist returnTourist = touristsRepository.findById(touristId).map(tourist -> {
+            if (flightRepository.findById(flightId).isPresent()) {
+                tourist.addFlight(flightRepository.findById(flightId).get());
+            }
+            return tourist;
+        }).orElseThrow(TouristNotFoundException::new);
+        Flight savedFlight = flightRepository.findById(flightId).map(flight ->{
+            flight.addTourist(returnTourist);
+            return flight;
+        } ).orElseThrow(FlightNotFoundException::new);
 
-        tourist.addFlight(flight);
-        flight.addTourist(tourist);
-
-        touristsRepository.save(tourist);
+        touristsRepository.save(returnTourist);
         return getTouristFlights(touristId);
     }
 

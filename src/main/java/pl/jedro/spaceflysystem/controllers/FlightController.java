@@ -3,7 +3,7 @@ package pl.jedro.spaceflysystem.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
-import pl.jedro.spaceflysystem.exceptions.ResourceNotFoundException;
+import pl.jedro.spaceflysystem.exceptions.FlightNotFoundException;
 import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 import pl.jedro.spaceflysystem.services.FlightService;
@@ -49,11 +49,11 @@ public class FlightController {
     }
 
     @PostMapping("/{flightId}/tourists")
-    public List<Tourist> addTouristToFlight(@PathVariable Long flightId, @RequestParam(name = "tourist_id") Long touristId) throws ResourceNotFoundException {
+    public List<Tourist> addTouristToFlight(@PathVariable Long flightId, @RequestParam(name = "tourist_id") Long touristId) throws FlightNotFoundException {
         try {
             return flightService.addTouristToFlight(flightId, touristId);
         } catch (NoSuchElementException e) {
-            throw new ResourceNotFoundException("No flight with id: " + flightId + " or tourist with id:" + touristId + " exists.");
+            throw new FlightNotFoundException("No flight with id: " + flightId + " or tourist with id:" + touristId + " exists.");
         }
     }
 
