@@ -37,7 +37,7 @@ public class Tourist {
     @NotNull(message = "Date of birth required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "flights_tourists",
             joinColumns = {@JoinColumn(name = "tourist_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "flight_id", referencedColumnName = "id")})

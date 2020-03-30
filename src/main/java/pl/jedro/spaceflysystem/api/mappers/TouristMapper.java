@@ -12,4 +12,4 @@ public interface TouristMapper {
     TouristDTO touristToDTO(Tourist tourist);
 
     Tourist touristDTOToTourist(TouristDTO touristDTO);
-    }
+}

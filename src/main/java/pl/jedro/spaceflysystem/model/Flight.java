@@ -6,7 +6,6 @@ import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
 import pl.jedro.spaceflysystem.exceptions.ResourcePresentException;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,8 +26,7 @@ public class Flight {
     @Column(nullable = false)
     @NotNull(message = "Seat quantity required")
     private int seatQuantity;
-    @ManyToMany(cascade ={CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "flights")
-
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "flights")
     @JsonIgnore
     private List<Tourist> tourists;
     @Column(nullable = false)

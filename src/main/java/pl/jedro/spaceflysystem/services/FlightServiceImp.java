@@ -15,6 +15,7 @@ import pl.jedro.spaceflysystem.repositories.FlightRepository;
 import pl.jedro.spaceflysystem.repositories.TouristRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.ignoreCase;
 
@@ -71,6 +72,15 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public void deleteFlight(Long id) {
+        try {
+
+
+            for (Tourist t : flightRepository.findById(id).get().getTourists()) {
+                deleteTouristInFlight(id, t.getId());
+            }
+        } catch (NoSuchElementException e) {
+            throw new DeleteRequestInvalidException("No Flight with id: " + id + " exists.");
+        }
         flightRepository.deleteById(id);
     }
 
@@ -83,12 +93,11 @@ public class FlightServiceImp implements FlightService {
         tourist.addFlight(flight);
 
         flightRepository.save(flight);
-        touristRepository.save(tourist);
         return getFlightTourists(flightId);
     }
 
     @Override
-    public void deleteTouristInFlight(Long flightId, Long touristId) throws DeleteRequestInvalidException {
+    public void deleteTouristInFlight(Long flightId, Long touristId) {
         Flight flight = flightRepository.findById(flightId).get();
         Tourist tourist = touristRepository.findById(touristId).get();
 
@@ -96,7 +105,6 @@ public class FlightServiceImp implements FlightService {
         flight.deleteTourist(touristId);
 
         flightRepository.save(flight);
-        touristRepository.save(tourist);
     }
 
 

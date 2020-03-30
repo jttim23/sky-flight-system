@@ -62,15 +62,16 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public void deleteTourist(Long id) {
-        touristsRepository.deleteById(id);
-    }
-
-    @Override
     public List<Flight> getTouristFlights(Long id) {
 
         return touristsRepository.getOne(id).getFlights();
     }
+
+    @Override
+    public void deleteTourist(Long id) {
+        touristsRepository.deleteById(id);
+    }
+
 
     @Override
     public void deleteFlightInTourist(Long touristId, Long flightId) throws DeleteRequestInvalidException {
@@ -81,7 +82,6 @@ public class TouristServiceImp implements TouristService {
         flight.deleteTourist(touristId);
 
         touristsRepository.save(tourist);
-        flightRepository.save(flight);
     }
 
     @Override
@@ -93,7 +93,6 @@ public class TouristServiceImp implements TouristService {
         flight.addTourist(tourist);
 
         touristsRepository.save(tourist);
-        flightRepository.save(flight);
         return getTouristFlights(touristId);
     }
 
