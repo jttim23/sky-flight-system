@@ -1,20 +1,23 @@
 # sky-flight-system
-A project to build **RESTful APIs** to implement a simple space-flights reservation system using **Spring Boot** and **Spring Data JPA** CRUD operations.
 
-You can read this Spring guide on how to build a [RESTful Web Service](https://spring.io/guides/gs/rest-service/). 
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#used-technologies)
+* [Setup](#setup)
 
-The general requirements and constraints were as follows:
-* 
-*
-*//to be added
-
-Additional requirements:
-* 
-
-## API description
-###### Note: For simplicity, no authentication or authorization is enforced for these requests.
-
-*
-*
-## Test framework
-Junit5
+## General info
+A job interview project to build a simple space-flights reservation system using **Spring Boot** and **Spring Data JPA** CRUD operations.
+All Endpoints are availeble under this link(Swagger to be added)
+### The general requirements and constraints were as follows:
+	
+## Used Technologies
+Project is created with:
+* Spring
+* Mockito
+* Project Lombok
+* Junit5
+* Rest-Assured
+* Hibernate
+* Swagger 	
+## Setup
+To run this project, install it locally using npm:
