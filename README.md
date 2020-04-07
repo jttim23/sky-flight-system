@@ -49,4 +49,9 @@ Project is created with:
 * Hibernate
 * Swagger 	
 ## Setup
-To run this project, install it locally using npm:
+Sky-flight-system is a Spring Boot application built using Maven. You can build a jar file and run it from the command line:
+
+git clone https://github.com/jttim23/sky-flight-system.git
+cd spring-petclinic
+./mvnw package
+java -jar target/*.jar
