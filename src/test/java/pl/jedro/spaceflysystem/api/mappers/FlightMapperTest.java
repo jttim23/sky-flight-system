@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.model.Flight;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FlightMapperTest {
     public static final int seats = 6;
@@ -26,7 +25,7 @@ class FlightMapperTest {
     public void flightToFlightDTO() throws Exception {
         Flight flight = new Flight();
         flight.setSeatQuantity(seats);
-        FlightDTO flightDTO = flightMapper.flightToFlightDTO(flight);
+        FlightDTO flightDTO = flightMapper.flightToDTO(flight);
         assertEquals(flight.getSeatQuantity(), flightDTO.getSeatQuantity());
     }
 

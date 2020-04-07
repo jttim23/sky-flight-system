@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
 import pl.jedro.spaceflysystem.model.Tourist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TouristMapperTest {
     TouristMapper touristMapper = TouristMapper.INSTANCE;
@@ -15,7 +15,7 @@ class TouristMapperTest {
         Tourist tourist = new Tourist();
         tourist.setName(NAME);
 
-        TouristDTO touristDTO = touristMapper.touristToTouristDTO(tourist);
+        TouristDTO touristDTO = touristMapper.touristToDTO(tourist);
         assertEquals(tourist.getName(), touristDTO.getName());
     }
 
@@ -27,4 +27,5 @@ class TouristMapperTest {
         Tourist tourist = touristMapper.touristDTOToTourist(touristDTO);
         assertEquals(touristDTO.getName(), tourist.getName());
     }
+
 }

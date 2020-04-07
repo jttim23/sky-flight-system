@@ -1,20 +1,26 @@
 package pl.jedro.spaceflysystem.services;
 
 import pl.jedro.spaceflysystem.api.DTO.TouristDTO;
+import pl.jedro.spaceflysystem.exceptions.DeleteRequestInvalidException;
+import pl.jedro.spaceflysystem.model.Flight;
 import pl.jedro.spaceflysystem.model.Tourist;
 
 import java.util.List;
 
 public interface TouristService {
-    List<TouristDTO> getAllTourists();
+    List<Tourist> getAllTourists();
 
     TouristDTO getTouristById(Long id);
 
+    List<Flight> getTouristFlights(Long id);
+
     TouristDTO createTourist(TouristDTO touristDTO);
 
-    void deleteTouristById(Long id);
+    List<Flight> addFlightTOTourist(Long touristId, Long flightId);
 
-    TouristDTO deleteFlightByTouristId(Long id);
-    TouristDTO addFlightByTouristId(Long id);
+    void deleteTourist(Long id);
+
+    void deleteFlightInTourist(Long id, Long flightId) throws DeleteRequestInvalidException;
+
 
 }

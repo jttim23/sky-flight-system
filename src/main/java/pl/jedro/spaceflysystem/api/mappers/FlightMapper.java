@@ -5,11 +5,11 @@ import org.mapstruct.factory.Mappers;
 import pl.jedro.spaceflysystem.api.DTO.FlightDTO;
 import pl.jedro.spaceflysystem.model.Flight;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface FlightMapper {
     FlightMapper INSTANCE = Mappers.getMapper(FlightMapper.class);
 
     Flight flightDTOToFlight(FlightDTO flightDTO);
 
-    FlightDTO flightToFlightDTO(Flight flight);
+    FlightDTO flightToDTO(Flight flight);
 }
