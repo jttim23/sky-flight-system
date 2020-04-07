@@ -9,9 +9,9 @@
 A job interview project to build a simple space-flights reservation system using **Spring Boot** and **Spring Data JPA** CRUD operations.
 All Endpoints are availeble under this link(Swagger to be added)
 ### The general requirements and constraints were as follows:
-	##### Structure:
+##### Structure:
 
-    ##### Functionality:
+##### Functionality:
 ## Used Technologies
 Project is created with:
 * Spring
@@ -22,4 +22,4 @@ Project is created with:
 * Hibernate
 * Swagger 	
 ## Setup
-//
+To run this project, install it locally using npm:
