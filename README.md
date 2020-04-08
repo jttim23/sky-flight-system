@@ -41,11 +41,13 @@ All Endpoints are availeble under this link(Swagger to be added)
 * Delete flight from the tourist
 ## Used Technologies
 Project is created with:
-* Spring
-* Mockito
+* Java - 11
+* Spring - 2.2.5
+* Mockito  
+* Mapstruct - 1.3.1
 * Project Lombok
 * Junit5
-* Rest-Assured
+* Rest-Assured - 3.3.0
 * Hibernate
 * Swagger 	
 ## Setup
