@@ -41,17 +41,18 @@ All Endpoints are availeble under this link(Swagger to be added)
 * Delete flight from the tourist
 ## Used Technologies
 Project is created with:
-* Spring
-* Mockito
+* Java - 11
+* Spring - 2.2.5
+* Mockito  
+* Mapstruct - 1.3.1
 * Project Lombok
 * Junit5
-* Rest-Assured
+* Rest-Assured - 3.3.0
 * Hibernate
 * Swagger 	
 ## Setup
-Sky-flight-system is a Spring Boot application built using Maven. You can build a jar file and run it from the command line:
-
-git clone https://github.com/jttim23/sky-flight-system.git
-cd spring-petclinic
-./mvnw package
-java -jar target/*.jar
+#### Sky-flight-system is a Spring Boot application built using Maven. You can build a jar file and run it from the command line:
+##### git clone https://github.com/jttim23/sky-flight-system.git
+##### cd sky-flight-system
+##### mvn package
+##### java -jar target/*.jar
