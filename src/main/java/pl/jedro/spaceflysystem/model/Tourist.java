@@ -44,6 +44,13 @@ public class Tourist {
     @JsonIgnore
     private List<Flight> flights;
 
+    /**
+     * Add {@code flight} to the list of tourists assigned to the {@code Tourist}.
+     * Also checks if this {@code flight} is already assigned to this {@code Tourist}.
+     *
+     * @param flight The flight to be added.
+     * @throws ResourcePresentException
+     */
     public void addFlight(Flight flight) {
         for (Flight f : flights) {
             if (f.getId().equals(flight.getId())) {
@@ -53,6 +60,14 @@ public class Tourist {
         flights.add(flight);
     }
 
+    /**
+     * Delete {@code Flight} from the list of flights assigned to the {@code Tourist} by {@code id}.
+     * <p></>Also checks if this {@code Tourist} has any {@code Flight} assigned, and if so, if {@code Flight} with passed (@code id)
+     * is assigned to this {@code Tourist}</p>
+     *
+     * @param id The flight id to get deleted.
+     * @throws DeleteRequestInvalidException
+     */
     public void deleteFlight(Long id) throws DeleteRequestInvalidException {
 
         List<Flight> returnList = new ArrayList<Flight>();

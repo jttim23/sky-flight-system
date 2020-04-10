@@ -71,6 +71,11 @@ public class FlightServiceImp implements FlightService {
         return flightRepository.getOne(id).getTourists();
     }
 
+    /**
+     * Deletes flight by id. Flight is owner of the relation so method needs to
+     * delete all tourist from the flight first, to make deletion from repo possible.
+     * @param id flight id
+     */
     @Override
     public void deleteFlight(Long id) {
         try {
@@ -88,7 +93,7 @@ public class FlightServiceImp implements FlightService {
     @Override
     public List<Tourist> addTouristToFlight(Long flightId, Long touristId) {
         Flight savedFlight = flightRepository.findById(flightId).map(flight -> {
-            if (touristRepository.findById(touristId).isPresent()){
+            if (touristRepository.findById(touristId).isPresent()) {
                 flight.addTourist(touristRepository.findById(touristId).get());
             }
             return flight;
@@ -117,6 +122,12 @@ public class FlightServiceImp implements FlightService {
     }
 
 
+    /**
+     * Saves flight and  converts it to DTO.
+     *
+     * @param flight flight to be saved
+     * @return flightDTO created from saved flight
+     */
     private FlightDTO saveAndReturnDTO(Flight flight) {
         FlightDTO returnDTO = flightMapper.flightToDTO(flightRepository.save(flight));
         returnDTO.setFlightUrl(getFlightUrl(flight.getId()));
@@ -124,6 +135,12 @@ public class FlightServiceImp implements FlightService {
 
     }
 
+    /**
+     * Creates URL based on base URL and flight id.
+     *
+     * @param id flight id
+     * @return created URL
+     */
     private String getFlightUrl(Long id) {
         return FlightController.BASE_URL + "/" + id;
     }

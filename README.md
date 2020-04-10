@@ -7,7 +7,7 @@
 
 ## General info
 A job interview project to build a simple space-flights reservation system using **Spring Boot** and **Spring Data JPA** CRUD operations.
-All Endpoints are availeble under this link(Swagger to be added)
+You can examine endpoints, after launching service under this link: http://localhost:8080/swagger-ui.html
 ### The general requirements and constraints were as follows:
 #### Structure:
 1. Flight:
@@ -56,3 +56,9 @@ Project is created with:
 ##### cd sky-flight-system
 ##### mvn package
 ##### java -jar target/*.jar
+
+## TODO
+* GUI(Angular)
+* Configure Swagger
+* Add security
+

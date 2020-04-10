@@ -51,7 +51,7 @@ public class TouristController {
     @PostMapping("/{touristId}/flights")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Flight> addFlightToTourist(@PathVariable Long touristId, @RequestParam(name = "flight_id") Long flightId) {
-            return touristService.addFlightTOTourist(touristId, flightId);
+        return touristService.addFlightTOTourist(touristId, flightId);
     }
 
     @DeleteMapping("/{id}")
