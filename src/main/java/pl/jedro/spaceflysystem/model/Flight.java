@@ -33,6 +33,13 @@ public class Flight {
     @NotNull(message = "Ticket Price required")
     private double ticketPrice;
 
+    /**
+     * Add {@code tourist} to the list of tourists assigned to the {@code Flight}.
+     * Also checks if this {@code tourist} is already assigned to this {@code Flight}.
+     *
+     * @param tourist The tourist to be added.
+     * @throws ResourcePresentException
+     */
     public void addTourist(Tourist tourist) throws ResourcePresentException {
         for (Tourist t : tourists) {
             if (t.getId().equals(tourist.getId())) {
@@ -42,6 +49,14 @@ public class Flight {
         tourists.add(tourist);
     }
 
+    /**
+     * Delete {@code Tourist} from the list of tourists assigned to the {@code Flight} by {@code id}.
+     * <p></>Also checks if this {@code Flight} has any {@code Tourist} assigned, and if so, if {@code Tourist} with passed (@code id)
+     * is assigned to this {@code Flight}</p>
+     *
+     * @param id The tourist id to get deleted.
+     * @throws DeleteRequestInvalidException
+     */
     public void deleteTourist(Long id) throws DeleteRequestInvalidException {
 
         List<Tourist> returnList = new ArrayList<Tourist>();

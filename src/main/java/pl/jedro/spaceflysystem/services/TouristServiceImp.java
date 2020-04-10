@@ -95,21 +95,33 @@ public class TouristServiceImp implements TouristService {
             }
             return tourist;
         }).orElseThrow(TouristNotFoundException::new);
-        Flight savedFlight = flightRepository.findById(flightId).map(flight ->{
+        Flight savedFlight = flightRepository.findById(flightId).map(flight -> {
             flight.addTourist(returnTourist);
             return flight;
-        } ).orElseThrow(FlightNotFoundException::new);
+        }).orElseThrow(FlightNotFoundException::new);
 
         touristsRepository.save(returnTourist);
         return getTouristFlights(touristId);
     }
 
+    /**
+     * Saves Tourist and converts it to DTO.
+     *
+     * @param tourist tourist to be saved
+     * @return touristDTO crated from saved tourist
+     */
     private TouristDTO saveAndReturnDTO(Tourist tourist) {
         TouristDTO returnDTO = touristMapper.touristToDTO(touristsRepository.save(tourist));
         returnDTO.setTouristUrl(getTouristUrl(tourist.getId()));
         return returnDTO;
     }
 
+    /**
+     * Creates URL based on base URL and tourist id.
+     *
+     * @param id tourist id
+     * @return created URL
+     */
     private String getTouristUrl(Long id) {
         return TouristController.BASE_URL + "/" + id;
     }

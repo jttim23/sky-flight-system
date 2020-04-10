@@ -18,7 +18,7 @@ import java.util.Map;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(FlightNotFoundException.class)
-    public ResponseEntity<Object> handleFlightNotFoundException(Exception exception, WebRequest request){
+    public ResponseEntity<Object> handleFlightNotFoundException(Exception exception, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalTime.now());
         body.put("message", "Flight Not Found, try another Id");
@@ -27,8 +27,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
 
     }
+
     @ExceptionHandler(TouristNotFoundException.class)
-    public ResponseEntity<Object> handleTouristNotFoundException(Exception exception, WebRequest request){
+    public ResponseEntity<Object> handleTouristNotFoundException(Exception exception, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalTime.now());
         body.put("message", "Tourist Not Found, try another Id");
