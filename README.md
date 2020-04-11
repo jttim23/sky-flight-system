@@ -59,6 +59,5 @@ Project is created with:
 
 ## TODO
 * GUI(Angular)
-* Configure Swagger
 * Add security
 

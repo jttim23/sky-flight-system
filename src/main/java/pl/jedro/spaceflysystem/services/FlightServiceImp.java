@@ -74,6 +74,7 @@ public class FlightServiceImp implements FlightService {
     /**
      * Deletes flight by id. Flight is owner of the relation so method needs to
      * delete all tourist from the flight first, to make deletion from repo possible.
+     *
      * @param id flight id
      */
     @Override
