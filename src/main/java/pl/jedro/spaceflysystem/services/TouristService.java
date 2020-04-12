@@ -48,7 +48,7 @@ public interface TouristService {
      * @param flightId  flight id
      * @return list of flight assigned to tourist after adding
      */
-    List<Flight> addFlightTOTourist(Long touristId, Long flightId);
+    List<Flight> addFlightToTourist(Long touristId, Long flightId);
 
     /**
      * Deletes tourist with specific id
