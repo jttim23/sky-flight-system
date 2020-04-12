@@ -31,6 +31,19 @@ public class FlightController {
     }
 
     @Operation(
+            summary = "Get all flights",
+            description = "Use this endpoint to get all flights saved in db",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Success")
+            }
+    )
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Flight> getAllFlights() {
+        return flightService.getAllFlights();
+    }
+
+    @Operation(
             summary = "Get all tourists from the flight",
             description = "Use this endpoint to get all tourists assigned to the flight with specific id",
             responses = {
@@ -54,18 +67,6 @@ public class FlightController {
     }
 
 
-    @Operation(
-            summary = "Get all flights",
-            description = "Use this endpoint to get all flights saved in db",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Success")
-            }
-    )
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Flight> getAllFlights() {
-        return flightService.getAllFlights();
-    }
 
 
     @Operation(
@@ -123,6 +124,7 @@ public class FlightController {
                     @Parameter(description = "id of tourist", name = "touristId", in = ParameterIn.QUERY)}
     )
     @PostMapping("/{flightId}/tourists")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Tourist> addTouristToFlight(@PathVariable Long flightId, @RequestParam(name = "touristId") Long touristId) throws FlightNotFoundException {
         try {
             return flightService.addTouristToFlight(flightId, touristId);
@@ -130,31 +132,6 @@ public class FlightController {
             throw new FlightNotFoundException("No flight with id: " + flightId + " or tourist with id:" + touristId + " exists.");
         }
     }
-
-
-    @Operation(
-            summary = "Delete tourist from flight",
-            description = "Use this endpoint to delete tourist by id from the flight with specific id. . Cannot use with swagger UI(redirect issues)",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Success"),
-                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(
-                            mediaType = "application/json")),
-                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(
-                            mediaType = "application/json")),
-                    @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(
-                            mediaType = "application/json"))
-            },
-            parameters = {@Parameter(description = "id of flight", name = "flightId"),
-                    @Parameter(description = "id of tourist", name = "touristId", in = ParameterIn.QUERY)}
-    )
-    @DeleteMapping("/{id}/tourists")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteTouristInFlight(HttpServletResponse response, @PathVariable Long flightId,
-                                      @RequestParam(name = "touristId") Long touristId) throws IOException {
-        flightService.deleteTouristInFlight(flightId, touristId);
-        response.sendRedirect(BASE_URL + "/" + flightId + "/tourists");
-    }
-
 
     @Operation(
             summary = "Delete flight by specific id",
@@ -174,6 +151,31 @@ public class FlightController {
         flightService.deleteFlight(id);
         response.sendRedirect(BASE_URL);
     }
+
+
+    @Operation(
+            summary = "Delete tourist from flight",
+            description = "Use this endpoint to delete tourist by id from the flight with specific id. . Cannot use with swagger UI(redirect issues)",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Success"),
+                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(
+                            mediaType = "application/json")),
+                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(
+                            mediaType = "application/json")),
+                    @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(
+                            mediaType = "application/json"))
+            },
+            parameters = {@Parameter(description = "id of flight", name = "flightId"),
+                    @Parameter(description = "id of tourist", name = "touristId", in = ParameterIn.QUERY)}
+    )
+    @DeleteMapping("/{flightId}/tourists")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteTouristInFlight(HttpServletResponse response, @PathVariable Long flightId,
+                                      @RequestParam(name = "touristId") Long touristId) throws IOException {
+        flightService.deleteTouristInFlight(flightId, touristId);
+        response.sendRedirect(BASE_URL + "/" + flightId + "/tourists");
+    }
+
 
 
 }

@@ -88,7 +88,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public List<Flight> addFlightTOTourist(Long touristId, Long flightId) {
+    public List<Flight> addFlightToTourist(Long touristId, Long flightId) {
         Tourist returnTourist = touristsRepository.findById(touristId).map(tourist -> {
             if (flightRepository.findById(flightId).isPresent()) {
                 tourist.addFlight(flightRepository.findById(flightId).get());

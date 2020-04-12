@@ -27,6 +27,21 @@ public class TouristController {
     public TouristController(TouristService touristService) {
         this.touristService = touristService;
     }
+
+    @Operation(
+            summary = "Get all tourists",
+            description = "Use this endpoint to get all tourists saved in db",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Success")
+            }
+    )
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Tourist> getAllTourist() {
+        return touristService.getAllTourists();
+    }
+
+
     @Operation(
             summary = "Get all flights from the tourist",
             description = "Use this endpoint to get all flights assigned to the tourist with specific id",
@@ -64,23 +79,10 @@ public class TouristController {
     )
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TouristDTO getById(@PathVariable Long id) {
+    public TouristDTO getTouristById(@PathVariable Long id) {
         return touristService.getTouristById(id);
     }
 
-
-    @Operation(
-            summary = "Get all tourists",
-            description = "Use this endpoint to get all tourists saved in db",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Success")
-            }
-    )
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Tourist> getAllTourist() {
-        return touristService.getAllTourists();
-    }
 
 
     @Operation(
@@ -101,6 +103,7 @@ public class TouristController {
     public TouristDTO createTourist(@RequestBody TouristDTO touristDTO) {
         return touristService.createTourist(touristDTO);
     }
+
     @Operation(
             summary = "Assign flight to tourist",
             description = "Use this endpoint to add flight by id to the tourist with specific id",
@@ -118,8 +121,8 @@ public class TouristController {
     )
     @PostMapping("/{touristId}/flights")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Flight> addFlightToTourist(@PathVariable Long touristId, @RequestParam(name = "flight_id") Long flightId) {
-        return touristService.addFlightTOTourist(touristId, flightId);
+    public List<Flight> addFlightToTourist(@PathVariable Long touristId, @RequestParam(name = "flightId") Long flightId) {
+        return touristService.addFlightToTourist(touristId, flightId);
     }
 
 
@@ -127,13 +130,13 @@ public class TouristController {
             summary = "Delete tourist by specific id",
             description = "Use this endpoint to delete a tourist saved in db. Cannot use with swagger UI(redirect issues)",
             responses = {
-        @ApiResponse(responseCode = "201", description = "Success"),
-        @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(
-                mediaType = "application/json")),
-        @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(
-                mediaType = "application/json"))
-    },
-    parameters = {@Parameter(description = "id of tourist", name = "id")}
+                    @ApiResponse(responseCode = "201", description = "Success"),
+                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(
+                            mediaType = "application/json")),
+                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(
+                            mediaType = "application/json"))
+            },
+            parameters = {@Parameter(description = "id of tourist", name = "id")}
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -159,10 +162,10 @@ public class TouristController {
             parameters = {@Parameter(description = "id of tourist", name = "touristId"),
                     @Parameter(description = "id of flight", name = "flightId", in = ParameterIn.QUERY)}
     )
-    @DeleteMapping("/{id}/flights")
+    @DeleteMapping("/{touristId}/flights")
     public void deleteFlightInTourist(HttpServletResponse response, @PathVariable Long touristId,
                                       @RequestParam(name = "flightId") Long flightId) throws IOException, DeleteRequestInvalidException {
-        touristService.deleteFlightInTourist(flightId, flightId);
+        touristService.deleteFlightInTourist(touristId, flightId);
         response.sendRedirect(BASE_URL + "/" + flightId + "/flights");
 
     }

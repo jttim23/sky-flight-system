@@ -3,7 +3,6 @@ package pl.jedro.spaceflysystem.exceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -14,10 +13,8 @@ import pl.jedro.spaceflysystem.controllers.TouristController;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -32,6 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);
 
     }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(Exception exception, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
