@@ -7,7 +7,7 @@
 
 ## General info
 A job interview project to build a simple space-flights reservation system using **Spring Boot** and **Spring Data JPA** CRUD operations.
-You can examine endpoints, after launching service under this link: http://localhost:8080/swagger-ui.html
+You can examine endpoints under this link: http://jttim23.ct8.pl:37876//swagger-ui.html
 ### The general requirements and constraints were as follows:
 #### Structure:
 1. Flight:
