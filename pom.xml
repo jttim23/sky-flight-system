@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pl.jedro</groupId>
-	<artifactId>space-fly-system</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>space-fly-system</name>
+	<artifactId>sky-flight-systemm</artifactId>
+	<version>1.0.0</version>
+	<name>sky-flight-system</name>
 	<description>Demo project for Spring Boot</description>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
